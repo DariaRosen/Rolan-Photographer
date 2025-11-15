@@ -48,16 +48,15 @@ export const Carousel = ({ images, autoPlayInterval = 4000 }: CarouselProps) => 
   }, [measureStep])
 
   const goToNext = useCallback(() => {
-    setCurrentIndex((prev) => Math.min(prev + 1, Math.max(0, images.length - VISIBLE)))
+    setCurrentIndex((prev) => (prev + 1) % images.length)
   }, [images.length])
 
   const goToPrevious = useCallback(() => {
-    setCurrentIndex((prev) => Math.max(prev - 1, 0))
-  }, [])
+    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length)
+  }, [images.length])
 
   const goToSlide = (index: number) => {
-    const maxStart = Math.max(0, images.length - VISIBLE)
-    setCurrentIndex(Math.min(index, maxStart))
+    setCurrentIndex(index % images.length)
   }
 
   // Auto-play functionality
@@ -65,11 +64,11 @@ export const Carousel = ({ images, autoPlayInterval = 4000 }: CarouselProps) => 
     if (!isAutoPlaying || images.length === 0) return
 
     const interval = setInterval(() => {
-      goToNext()
+      setCurrentIndex((prev) => (prev + 1) % images.length)
     }, autoPlayInterval)
 
     return () => clearInterval(interval)
-  }, [isAutoPlaying, autoPlayInterval, goToNext, images.length])
+  }, [isAutoPlaying, autoPlayInterval, images.length])
 
   // Pause auto-play on hover
   const handleMouseEnter = () => setIsAutoPlaying(false)
@@ -79,7 +78,33 @@ export const Carousel = ({ images, autoPlayInterval = 4000 }: CarouselProps) => 
     return null
   }
 
-  const translateX = -(currentIndex * step)
+  // Map images to fixed positions (0-4)
+  // Position 0: leftmost (smallest)
+  // Position 1: left side (medium)
+  // Position 2: center (largest)
+  // Position 3: right side (medium)
+  // Position 4: rightmost (smallest)
+  const getImageForPosition = (position: number) => {
+    // Calculate which image should be at this position
+    // Position 2 (center) shows image at currentIndex
+    // Position 1 shows image at currentIndex - 1
+    // Position 0 shows image at currentIndex - 2
+    // Position 3 shows image at currentIndex + 1
+    // Position 4 shows image at currentIndex + 2
+    
+    const imageOffset = position - 2 // -2, -1, 0, 1, 2
+    let imageIndex = currentIndex + imageOffset
+    
+    // Handle wrapping for circular carousel
+    if (imageIndex < 0) {
+      imageIndex = images.length + imageIndex
+    } else if (imageIndex >= images.length) {
+      imageIndex = imageIndex % images.length
+    }
+    
+    return imageIndex
+  }
+  
   const showArrows = images.length > VISIBLE
 
   return (
@@ -92,28 +117,35 @@ export const Carousel = ({ images, autoPlayInterval = 4000 }: CarouselProps) => 
         <div
           ref={trackRef}
           className={styles.carouselTrack}
-          style={{ transform: `translateX(${translateX}px)` }}
         >
-          {images.map((image, index) => {
-            // Calculate position relative to center (which is at currentIndex + 2)
-            const relativePosition = index - (currentIndex + 2)
+          {/* Render 5 fixed position cards */}
+          {[0, 1, 2, 3, 4].map((position) => {
+            const imageIndex = getImageForPosition(position)
+            const image = images[imageIndex]
             
-            // Determine card type based on position relative to center
-            const isCenter = relativePosition === 0
-            const distanceFromCenter = Math.abs(relativePosition)
+            // Determine card type based on fixed position
+            // Position 0: leftmost edge (smallest)
+            // Position 1: left side (medium)
+            // Position 2: center (largest)
+            // Position 3: right side (medium)
+            // Position 4: rightmost edge (smallest)
+            const isCenter = position === 2
+            const isEdge = position === 0 || position === 4
+            const isSide = position === 1 || position === 3
             
             return (
               <div
-                key={index}
+                key={`position-${position}-image-${imageIndex}`}
                 className={`${styles.carouselSlide} ${
                   isCenter ? styles.slideCenter : ''
-                } ${distanceFromCenter === 2 ? styles.slideEdge : distanceFromCenter === 1 ? styles.slideSide : ''}`}
+                } ${isEdge ? styles.slideEdge : ''} ${isSide ? styles.slideSide : ''}`}
               >
                 <img
                   src={image.src}
                   alt={image.alt}
                   className={styles.carouselImage}
-                  loading={isCenter && index < 3 ? 'eager' : 'lazy'}
+                  loading={isCenter ? 'eager' : 'lazy'}
+                  key={`img-${imageIndex}-${currentIndex}`}
                 />
               </div>
             )
