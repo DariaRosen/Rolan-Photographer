@@ -1,0 +1,178 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background-color: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid $border-color;
+  transition: all $transition-base;
+
+  &.scrolled {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  }
+}
+
+.container {
+  @include container;
+  @include flex-between;
+  height: 90px;
+
+  @include breakpoint(lg) {
+    height: 100px;
+  }
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: opacity $transition-fast;
+  height: 50px;
+
+  @include breakpoint(lg) {
+    height: 60px;
+  }
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.logoImage {
+  height: 100%;
+  width: auto;
+  max-width: 200px;
+  object-fit: contain;
+  display: block;
+}
+
+.nav {
+  display: none;
+
+  @include breakpoint(md) {
+    display: flex;
+    align-items: center;
+    gap: $spacing-xl;
+  }
+}
+
+.navItem {
+  font-size: $fs-base;
+  font-weight: 400;
+  color: $text-dark;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-size: 0.8125rem;
+  position: relative;
+  transition: color $transition-fast;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: $primary-color;
+    transition: width $transition-base;
+  }
+
+  &:hover {
+    color: $primary-color;
+
+    &::after {
+      width: 100%;
+    }
+  }
+
+  &.active {
+    color: $primary-color;
+
+    &::after {
+      width: 100%;
+    }
+  }
+}
+
+.mobileMenuButton {
+  @include button-reset;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: $spacing-xs;
+  z-index: 1001;
+
+  @include breakpoint(md) {
+    display: none;
+  }
+
+  span {
+    width: 24px;
+    height: 1px;
+    background-color: $primary-color;
+    transition: all $transition-base;
+  }
+
+  &.open {
+    span:nth-child(1) {
+      transform: rotate(45deg) translate(7px, 7px);
+    }
+
+    span:nth-child(2) {
+      opacity: 0;
+    }
+
+    span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
+  }
+}
+
+.mobileMenu {
+  position: fixed;
+  top: 90px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: $secondary-color;
+  padding: $spacing-xl $spacing-md;
+  transform: translateX(-100%);
+  transition: transform $transition-base;
+  z-index: 999;
+
+  @include breakpoint(md) {
+    display: none;
+  }
+
+  &.open {
+    transform: translateX(0);
+  }
+}
+
+.mobileNav {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-lg;
+}
+
+.mobileNavItem {
+  font-size: $fs-xl;
+  font-weight: 400;
+  color: $text-dark;
+  padding: $spacing-sm 0;
+  border-bottom: 1px solid $border-color;
+  transition: color $transition-fast;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.875rem;
+
+  &:hover {
+    color: $primary-color;
+  }
+}
+

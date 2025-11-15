@@ -1,0 +1,11 @@
+@import '../../styles/variables';
+
+.main {
+  min-height: calc(100vh - 180px);
+  padding-top: 90px;
+
+  @media (min-width: 768px) {
+    padding-top: 100px;
+  }
+}
+

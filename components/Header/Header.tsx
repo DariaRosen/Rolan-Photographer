@@ -43,7 +43,19 @@ export const Header = ({ navigation = defaultNavigation }: HeaderProps) => {
     <header className={`${styles.header} ${isScrolled ? styles.scrolled : ''}`}>
       <div className={styles.container}>
         <Link href="/" className={styles.logo}>
-          Photography
+          <img 
+            src="/logo.jpg" 
+            alt="" 
+            className={styles.logoImage}
+            onError={(e) => {
+              console.error('Logo failed to load from /logo.jpg');
+              const img = e.target as HTMLImageElement;
+              img.style.display = 'none';
+              // Fallback: try different path
+              img.src = '/logo.jpg';
+            }}
+            onLoad={() => console.log('Logo loaded successfully from /logo.jpg')}
+          />
         </Link>
 
         <nav className={styles.nav}>
