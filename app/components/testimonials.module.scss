@@ -88,6 +88,10 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   width: 100%;
   height: 500px;
+  isolation: isolate;
+  box-sizing: border-box;
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
 
   &:hover {
     transform: translateY(-4px);
@@ -132,9 +136,12 @@
   overflow: hidden;
   background-color: $bg-off-white;
   flex-shrink: 0;
+  padding: $spacing-xs;
+  border-radius: 10px 10px 0 0;
 
   @include breakpoint(lg) {
     height: 220px;
+    padding: $spacing-sm;
   }
 }
 
@@ -143,6 +150,11 @@
   height: 100%;
   object-fit: cover;
   object-position: center;
+  border-radius: 8px;
+
+  @include breakpoint(lg) {
+    border-radius: 10px;
+  }
 }
 
 .content {
@@ -156,10 +168,15 @@
   z-index: 2;
   background-color: $bg-off-white;
   min-height: 0;
+  border-radius: 0 0 10px 10px;
+  margin: $spacing-xs;
+  margin-top: 0;
 
   @include breakpoint(lg) {
     padding: $spacing-lg;
     gap: $spacing-sm;
+    margin: $spacing-sm;
+    margin-top: 0;
   }
 }
 
@@ -203,6 +220,8 @@
 .heartCircle {
   width: 60px;
   height: 60px;
+  min-width: 60px;
+  min-height: 60px;
   border-radius: 50%;
   border: 2px solid $text-dark;
   display: flex;
@@ -210,10 +229,17 @@
   justify-content: center;
   background-color: $secondary-color;
   padding: $spacing-xs;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
 
   @include breakpoint(lg) {
     width: 70px;
     height: 70px;
+    min-width: 70px;
+    min-height: 70px;
   }
 }
 
@@ -221,6 +247,7 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
+  display: block;
 }
 
 .navButton {

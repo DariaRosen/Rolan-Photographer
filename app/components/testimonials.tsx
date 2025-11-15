@@ -15,7 +15,7 @@ const testimonials: Testimonial[] = [
   {
     id: '1',
     image: '/testimonies/1.PNG',
-    clientName: 'של אורי, גיל',
+    clientName: 'אמא של אורי וגיל',
     text: [
       'תודה רולן את נדירה',
       'המקצועית שלך זה אמאלהה',
@@ -46,7 +46,7 @@ const testimonials: Testimonial[] = [
   {
     id: '3',
     image: '/testimonies/3.PNG',
-    clientName: 'דבורה, קורן',
+    clientName: 'דבורה קורן',
     text: [
       'ואיי תקשיבי התגובות מטורפותתתת על התמונות',
       'תודה על הכל לא מובן מאליו',
@@ -68,7 +68,7 @@ const testimonials: Testimonial[] = [
   {
     id: '5',
     image: '/testimonies/5.PNG',
-    clientName: 'רחל, משפחה',
+    clientName: 'רחל כהן',
     text: [
       'את צלמת נהדרת!',
       'התוצאה מעבר למצופה',
@@ -126,7 +126,7 @@ export const Testimonials = () => {
               aria-label="Previous testimonials"
             >
               <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M9 18L15 12L9 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </button>
 
@@ -177,7 +177,7 @@ export const Testimonials = () => {
               aria-label="Next testimonials"
             >
               <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M9 18L15 12L9 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </button>
           </div>
