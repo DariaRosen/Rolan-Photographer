@@ -14,11 +14,12 @@ html {
 body {
   font-family: $font-primary;
   font-size: $fs-base;
-  line-height: 1.6;
+  line-height: 1.7;
   color: $text-dark;
   background-color: $secondary-color;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-weight: 300;
 }
 
 a {
@@ -27,7 +28,7 @@ a {
   transition: color $transition-fast;
 
   &:hover {
-    color: $accent-color;
+    color: $primary-color;
   }
 }
 
