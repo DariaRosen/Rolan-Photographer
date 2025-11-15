@@ -67,22 +67,10 @@
   overflow: hidden;
   text-overflow: ellipsis;
   letter-spacing: 0.3px;
-  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: $spacing-xs;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 3px;
-    height: 100%;
-    background-color: transparent;
-    transition: background-color $transition-base;
-  }
 
   @include breakpoint(lg) {
     flex: 1;
@@ -103,18 +91,26 @@
   }
 
   &.tabActive {
-    color: $primary-color;
-    border-bottom-color: $primary-color;
-    font-weight: 500;
-    background-color: $secondary-color;
-
-    &::before {
-      background-color: $primary-color;
-    }
+    color: $text-dark;
+    border-bottom-color: transparent;
+    font-weight: 600;
+    background-color: $bg-off-white;
+    font-size: $fs-base;
 
     .tabIcon {
       opacity: 1;
-      filter: brightness(0);
+      filter: none;
+      width: 22px;
+      height: 22px;
+    }
+
+    @include breakpoint(lg) {
+      font-size: $fs-lg;
+      
+      .tabIcon {
+        width: 24px;
+        height: 24px;
+      }
     }
   }
 }
@@ -124,7 +120,7 @@
   height: 18px;
   object-fit: contain;
   opacity: 0.6;
-  transition: opacity $transition-base, filter $transition-base;
+  transition: opacity $transition-base, filter $transition-base, width $transition-base, height $transition-base;
   flex-shrink: 0;
 
   @include breakpoint(lg) {
