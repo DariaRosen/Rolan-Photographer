@@ -1,9 +1,0 @@
-﻿const defaultNavigation: NavigationItem[] = [
-  { label: '׳‘׳™׳×', href: '/' },
-  { label: '׳”׳¡׳™׳₪׳•׳¨ ׳©׳׳™', href: '/about' },
-  { label: '׳’׳׳¨׳™׳”', href: '/gallery' },
-  { label: '׳׳” ׳¢׳™׳‘׳•׳“ ׳¢׳•׳©׳” ׳׳×׳׳•׳ ׳”', href: '/editing' },
-  { label: '׳‘׳׳•׳’', href: '/blog' },
-  { label: '׳׳§׳•׳—׳•׳× ׳׳׳׳™׳¦׳™׳', href: '/testimonials' },
-  { label: '׳¦׳•׳¨ ׳§׳©׳¨', href: '/contact' },
-]
