@@ -1,0 +1,171 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.gallery {
+  padding: $spacing-2xl $spacing-md;
+  max-width: 1400px;
+  margin: 0 auto;
+  direction: rtl;
+  background-color: $secondary-color;
+  min-height: calc(100vh - 300px);
+
+  @include breakpoint(lg) {
+    padding: $spacing-2xl $spacing-xl;
+  }
+}
+
+.title {
+  font-family: $font-primary;
+  font-size: $fs-3xl;
+  font-weight: 400;
+  color: $text-dark;
+  text-align: center;
+  margin-bottom: $spacing-xl;
+  letter-spacing: 1px;
+
+  @include breakpoint(lg) {
+    font-size: $fs-4xl;
+    margin-bottom: $spacing-2xl;
+  }
+}
+
+.galleryGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacing-xl;
+  width: 100%;
+
+  @include breakpoint(md) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: $spacing-xl;
+  }
+
+  @include breakpoint(lg) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: $spacing-2xl;
+  }
+}
+
+.galleryItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-md;
+  cursor: pointer;
+  transition: transform $transition-base;
+}
+
+.itemTitle {
+  font-family: $font-primary;
+  font-size: $fs-lg;
+  font-weight: 400;
+  color: $text-dark;
+  text-align: center;
+  margin: 0;
+  letter-spacing: 0.5px;
+  transition: color $transition-base, transform $transition-base;
+
+  @include breakpoint(lg) {
+    font-size: $fs-xl;
+  }
+
+  .galleryItem:hover & {
+    color: $primary-color;
+    transform: translateY(-2px);
+  }
+}
+
+.frame {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  padding: 16px;
+  background: linear-gradient(
+    to bottom,
+    #d4a574 0%,
+    #c49464 25%,
+    #b88555 50%,
+    #a87646 75%,
+    #9d6d3d 100%
+  );
+  border-radius: 2px;
+  box-shadow: 
+    0 6px 12px rgba(0, 0, 0, 0.15),
+    0 2px 4px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+  transition: transform $transition-base, box-shadow $transition-base;
+
+  @include breakpoint(lg) {
+    padding: 20px;
+  }
+
+  &:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 
+      0 12px 24px rgba(0, 0, 0, 0.2),
+      0 4px 8px rgba(0, 0, 0, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.4),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+  }
+
+  // Inner frame border (wood edge)
+  &::before {
+    content: '';
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    right: 6px;
+    bottom: 6px;
+    border: 1px solid rgba(139, 101, 64, 0.5);
+    border-radius: 1px;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  // Wood grain texture overlay
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 3px,
+        rgba(139, 101, 64, 0.08) 3px,
+        rgba(139, 101, 64, 0.08) 6px
+      ),
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 8px,
+        rgba(139, 101, 64, 0.04) 8px,
+        rgba(139, 101, 64, 0.04) 16px
+      );
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0.6;
+  }
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+  position: relative;
+  z-index: 0;
+  background-color: $bg-off-white;
+  transition: transform $transition-base, filter $transition-base;
+
+  .frame:hover & {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+  }
+}
+
