@@ -1,0 +1,272 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.testimonials {
+  padding: $spacing-2xl $spacing-md;
+  max-width: 1400px;
+  margin: 0 auto;
+  direction: rtl;
+  background-color: $secondary-color;
+  min-height: calc(100vh - 300px);
+
+  @include breakpoint(lg) {
+    padding: $spacing-2xl $spacing-xl;
+  }
+}
+
+.title {
+  font-family: $font-primary;
+  font-size: $fs-3xl;
+  font-weight: 400;
+  color: $text-dark;
+  text-align: center;
+  margin-bottom: $spacing-xl;
+  letter-spacing: 1px;
+
+  @include breakpoint(lg) {
+    font-size: $fs-4xl;
+    margin-bottom: $spacing-2xl;
+  }
+}
+
+.carouselContainer {
+  position: relative;
+  width: 100%;
+  padding: $spacing-lg 0;
+}
+
+.carouselTrack {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: $spacing-md;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  align-items: start;
+
+  @include breakpoint(lg) {
+    gap: $spacing-lg;
+  }
+
+  > *:first-child {
+    grid-column: 1;
+  }
+
+  > *:last-child {
+    grid-column: 3;
+  }
+}
+
+.cardsContainer {
+  grid-column: 2;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $spacing-md;
+
+  @include breakpoint(md) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include breakpoint(lg) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: $spacing-lg;
+  }
+}
+
+.cardWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-md;
+}
+
+.testimonialCard {
+  position: relative;
+  background-color: $secondary-color;
+  border: 2px solid $text-dark;
+  border-radius: 12px;
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+  height: 500px;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  }
+  
+  // Speech bubble tail
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-top: 12px solid $secondary-color;
+    z-index: 1;
+  }
+  
+  // Speech bubble tail border
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 14px solid transparent;
+    border-right: 14px solid transparent;
+    border-top: 14px solid $text-dark;
+    z-index: 0;
+  }
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
+  background-color: $bg-off-white;
+  flex-shrink: 0;
+
+  @include breakpoint(lg) {
+    height: 220px;
+  }
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.content {
+  padding: $spacing-md;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+  flex: 1;
+  overflow-y: auto;
+  position: relative;
+  z-index: 2;
+  background-color: $bg-off-white;
+  min-height: 0;
+
+  @include breakpoint(lg) {
+    padding: $spacing-lg;
+    gap: $spacing-sm;
+  }
+}
+
+.text {
+  font-family: $font-primary;
+  font-size: $fs-sm;
+  line-height: 1.3;
+  color: $text-dark;
+  margin: 0;
+  text-align: right;
+
+  @include breakpoint(lg) {
+    font-size: $fs-base;
+    line-height: 1.4;
+  }
+}
+
+.heartContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-xs;
+  margin-top: $spacing-sm;
+}
+
+.clientName {
+  font-family: $font-primary;
+  font-size: $fs-sm;
+  color: $text-dark;
+  text-align: center;
+  margin: 0;
+  font-style: italic;
+  letter-spacing: 0.5px;
+
+  @include breakpoint(lg) {
+    font-size: $fs-base;
+  }
+}
+
+.heartCircle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 2px solid $text-dark;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $secondary-color;
+  padding: $spacing-xs;
+
+  @include breakpoint(lg) {
+    width: 70px;
+    height: 70px;
+  }
+}
+
+.heartIcon {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.navButton {
+  @include button-reset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: transparent;
+  border: 2px solid $border-color;
+  color: $text-dark;
+  cursor: pointer;
+  transition: all $transition-base;
+  flex-shrink: 0;
+  z-index: 20;
+  position: relative;
+
+  svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  &:hover {
+    background-color: $accent-color;
+    color: $secondary-color;
+    border-color: $accent-color;
+    transform: scale(1.1);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  @include breakpoint(lg) {
+    width: 56px;
+    height: 56px;
+
+    svg {
+      width: 28px;
+      height: 28px;
+    }
+  }
+}
