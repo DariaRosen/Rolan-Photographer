@@ -4,6 +4,9 @@ const nextConfig = {
   sassOptions: {
     includePaths: ['./styles'],
   },
+  images: {
+    remotePatterns: [],
+  },
 }
 
 module.exports = nextConfig
