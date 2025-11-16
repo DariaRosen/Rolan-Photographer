@@ -72,7 +72,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: $spacing-md;
+  gap: 0;
   grid-column: span 1;
 }
 
@@ -87,7 +87,7 @@
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   width: 100%;
-  height: 500px;
+  height: 400px;
   isolation: isolate;
   box-sizing: border-box;
   -webkit-border-radius: 12px;
@@ -158,10 +158,10 @@
 }
 
 .content {
-  padding: $spacing-md;
+  padding: 0;
   display: flex;
   flex-direction: column;
-  gap: $spacing-xs;
+  gap: 0;
   flex: 1;
   overflow-y: auto;
   position: relative;
@@ -169,8 +169,7 @@
   background-color: $bg-off-white;
   min-height: 0;
   border-radius: 0 0 10px 10px;
-  margin: $spacing-xs;
-  margin-top: 0;
+  margin: 0;
 
   @include breakpoint(lg) {
     padding: $spacing-lg;
@@ -218,10 +217,10 @@
 }
 
 .heartCircle {
-  width: 60px;
-  height: 60px;
-  min-width: 60px;
-  min-height: 60px;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
   border-radius: 50%;
   border: 2px solid $text-dark;
   display: flex;
