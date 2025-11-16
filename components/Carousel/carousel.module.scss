@@ -1,278 +1,95 @@
-@import '../../styles/variables';
-@import '../../styles/mixins';
+@import "../../styles/variables";
+@import "../../styles/mixins";
 
 .carousel {
-  position: relative;
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
-  overflow: visible;
-  padding: $spacing-lg 0;
+  position: relative;
+  padding: 0 0;
 }
 
 .carouselContainer {
   position: relative;
   width: 100%;
-  height: 500px;
-  overflow: hidden;
+  height: 450px;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
 
   @include breakpoint(lg) {
     height: 400px;
   }
 }
 
-.carouselTrack {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  height: 100%;
-  width: 100%;
-  position: relative;
-}
-
 .carouselSlide {
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
-  
-  // Smooth transitions for all properties
-  transition: width 0.4s ease, height 0.4s ease, transform 0.4s ease, opacity 0.4s ease, left 0.4s ease, right 0.4s ease, margin-left 0.4s ease;
-  will-change: transform, opacity, width, height;
-  
-  // Edge cards (leftmost and rightmost) - smallest
-  &.slideEdge {
-    height: 180px;
-    width: 120px;
-    opacity: 0.6;
-    transform: translateY(-50%) scale(0.65);
-    
-    @include breakpoint(lg) {
-      height: 120px;
-      width: 160px;
-    }
-    
-    // Position leftmost (position 0)
-    &:nth-of-type(1) {
-      left: 5%;
-    }
-    
-    // Position rightmost (position 4)
-    &:nth-of-type(5) {
-      right: 5%;
-      left: auto;
-    }
-  }
-  
-  // Side cards (2nd and 4th) - medium
-  &.slideSide {
-    height: 240px;
-    width: 150px;
-    opacity: 0.8;
-    transform: translateY(-50%) scale(0.8);
-    
-    @include breakpoint(lg) {
-      height: 150px;
-      width: 200px;
-    }
-    
-    // Position left side (position 1)
-    &:nth-of-type(2) {
-      left: 15%;
-    }
-    
-    // Position right side (position 3)
-    &:nth-of-type(4) {
-      right: 15%;
-      left: auto;
-    }
-  }
-  
-  // Center card - largest
-  &.slideCenter {
-    height: 450px;
-    width: 320px;
-    opacity: 1;
-    transform: translateY(-50%) scale(1);
-    z-index: 10;
-    left: 50%;
-    margin-left: -160px; // Half of width
-    
-    @include breakpoint(lg) {
-      height: 330px;
-      width: 450px;
-      margin-left: -225px; // Half of width
-    }
-  }
+  left: 50%;
+  will-change: transform, opacity;
+
+  /* 👇 Smooth position + scale animation */
+  transition: transform 0.9s cubic-bezier(0.22, 0.61, 0.36, 1),
+    opacity 0.9s ease;
 }
 
 .carouselImage {
-  width: 100%;
-  height: 100%;
+  width: 320px;
+  height: 450px;
   object-fit: cover;
   object-position: center;
-  display: block;
-  animation: slideIn 0.4s ease-out;
-  
-  // Classic photo frame effect
-  border: 8px solid $secondary-color;
+  border: 10px solid $secondary-color;
   border-bottom-width: 20px;
-  border-top-width: 8px;
-  border-left-width: 8px;
-  border-right-width: 8px;
-  box-shadow: 
-    0 0 0 2px rgba(0, 0, 0, 0.1),
-    0 0 0 4px rgba(0, 0, 0, 0.05),
-    inset 0 0 20px rgba(0, 0, 0, 0.1),
-    0 8px 24px rgba(0, 0, 0, 0.2);
-  transition: opacity 0.3s ease-in-out, box-shadow $transition-base;
-  background-color: $secondary-color;
-  
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1), 0 10px 25px rgba(0, 0, 0, 0.2);
+
+  transition: box-shadow 0.4s ease;
+
   @include breakpoint(lg) {
-    border: 12px solid $secondary-color;
-    border-bottom-width: 30px;
-    border-top-width: 12px;
-    border-left-width: 12px;
-    border-right-width: 12px;
+    width: 450px;
+    height: 330px;
   }
 }
 
 .carouselSlide:hover .carouselImage {
-  box-shadow: 
-    0 0 0 2px rgba(0, 0, 0, 0.15),
-    0 0 0 4px rgba(0, 0, 0, 0.08),
-    inset 0 0 20px rgba(0, 0, 0, 0.15),
-    0 12px 32px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.12), 0 12px 32px rgba(0, 0, 0, 0.3);
 }
 
-.carouselSlide.slideCenter .carouselImage {
-  box-shadow: 
-    0 0 0 3px rgba(0, 0, 0, 0.1),
-    0 0 0 6px rgba(0, 0, 0, 0.05),
-    inset 0 0 30px rgba(0, 0, 0, 0.1),
-    0 12px 32px rgba(0, 0, 0, 0.25);
-}
-
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
+/* Buttons */
 .carouselButton {
   @include button-reset;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 10;
-  width: 50px;
-  height: 50px;
-  @include flex-center;
-  background-color: rgba(255, 255, 255, 0.9);
-  border: 1px solid $border-color;
-  border-radius: 50%;
-  color: $primary-color;
-  transition: all $transition-base;
-  cursor: pointer;
+  left: $spacing-md;
 
-  @include breakpoint(lg) {
-    width: 60px;
-    height: 60px;
-  }
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  border: 1px solid $border-color;
+  background: rgba(255, 255, 255, 0.9);
+  cursor: pointer;
+  font-size: 50px;
+  line-height: 45px;
+  color: $primary-color;
+
+  transition: all 0.3s ease;
 
   &:hover {
+    transform: translateY(-50%) scale(1.05);
     background-color: $secondary-color;
     border-color: $primary-color;
-    transform: translateY(-50%) scale(1.05);
   }
-
-  &:active {
-    transform: translateY(-50%) scale(0.95);
-  }
-
-  &:disabled {
-    opacity: 0.4;
-    cursor: default;
-    
-    &:hover {
-      background-color: rgba(255, 255, 255, 0.9);
-      border-color: $border-color;
-      transform: translateY(-50%);
-    }
-  }
-
-  svg {
-    width: 24px;
-    height: 24px;
-
-    @include breakpoint(lg) {
-      width: 28px;
-      height: 28px;
-    }
-  }
-}
-
-.carouselButtonRight {
-  right: $spacing-md;
-
-  @include breakpoint(lg) {
-    right: $spacing-lg;
-  }
-}
-
-.carouselButton:not(.carouselButtonRight) {
-  left: $spacing-md;
 
   @include breakpoint(lg) {
     left: $spacing-lg;
   }
 }
 
-.carouselIndicators {
-  position: absolute;
-  bottom: $spacing-md;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: $spacing-sm;
-  z-index: 10;
+.carouselButtonRight {
+  left: auto;
+  right: $spacing-md;
 
   @include breakpoint(lg) {
-    bottom: $spacing-lg;
+    right: $spacing-lg;
   }
 }
-
-.indicator {
-  @include button-reset;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  transition: all $transition-base;
-  cursor: pointer;
-
-  &:hover {
-    background-color: rgba(255, 255, 255, 0.7);
-  }
-
-  &.indicatorActive {
-    background-color: $secondary-color;
-    border-color: $secondary-color;
-    width: 30px;
-    border-radius: 5px;
-  }
-}
-

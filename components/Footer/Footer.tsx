@@ -1,31 +1,31 @@
-import Link from 'next/link'
-import styles from './footer.module.scss'
-import { NavigationItem, SocialLink } from '@/types'
+import Link from "next/link";
+import styles from "./footer.module.scss";
+import { NavigationItem, SocialLink } from "@/types";
 
 interface FooterProps {
-  navigation?: NavigationItem[]
-  socialLinks?: SocialLink[]
+  navigation?: NavigationItem[];
+  socialLinks?: SocialLink[];
 }
 
 const defaultNavigation: NavigationItem[] = [
-  { label: 'Portfolio', href: '/portfolio' },
-  { label: 'About', href: '/about' },
-  { label: 'Contact', href: '/contact' },
-  { label: 'Blog', href: '/blog' },
-]
+  { label: "Portfolio", href: "/portfolio" },
+  { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
+  { label: "Blog", href: "/blog" },
+];
 
 const defaultSocialLinks: SocialLink[] = [
-  { name: 'Instagram', href: 'https://instagram.com' },
-  { name: 'Facebook', href: 'https://facebook.com' },
-  { name: 'Twitter', href: 'https://twitter.com' },
-  { name: 'LinkedIn', href: 'https://linkedin.com' },
-]
+  { name: "Instagram", href: "https://instagram.com" },
+  { name: "Facebook", href: "https://facebook.com" },
+  { name: "Twitter", href: "https://twitter.com" },
+  { name: "LinkedIn", href: "https://linkedin.com" },
+];
 
 export const Footer = ({
   navigation = defaultNavigation,
   socialLinks = defaultSocialLinks,
 }: FooterProps) => {
-  const currentYear = new Date().getFullYear()
+  const currentYear = new Date().getFullYear();
 
   return (
     <footer className={styles.footer}>
@@ -33,10 +33,7 @@ export const Footer = ({
         <div className={styles.content}>
           <div className={styles.brand}>
             <h3>Photography</h3>
-            <p>
-              Capturing moments that tell your story. Professional photography
-              services for weddings, portraits, events, and commercial projects.
-            </p>
+            <p>"הרגעים הקטנים עם המשפחה היום הם פרקי הנוסטלגיה של העתיד "</p>
             <div className={styles.socialLinks}>
               {socialLinks.map((social) => (
                 <a
@@ -88,6 +85,5 @@ export const Footer = ({
         </div>
       </div>
     </footer>
-  )
-}
-
+  );
+};
