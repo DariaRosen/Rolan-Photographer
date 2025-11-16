@@ -9,6 +9,7 @@ interface PricingPackage {
   price: string
   features: string[]
   colorScheme: 'blue' | 'orange' | 'yellow' | 'premium'
+  isOnSale?: boolean
 }
 
 const pricingPackages: PricingPackage[] = [
@@ -17,6 +18,7 @@ const pricingPackages: PricingPackage[] = [
     title: 'צילומי גיל שנה',
     price: '₪1500',
     colorScheme: 'blue',
+    isOnSale: true,
     features: [
       'עד שעה וחצי צילומים',
       'סט צילום עם עוגה / אמבט לבחירה',
@@ -73,8 +75,17 @@ export const Pricing = () => {
           {pricingPackages.map((pkg) => (
             <div
               key={pkg.id}
-              className={`${styles.package} ${styles[`package${pkg.colorScheme.charAt(0).toUpperCase() + pkg.colorScheme.slice(1)}`]}`}
+              className={`${styles.package} ${styles[`package${pkg.colorScheme
+                .charAt(0)
+                .toUpperCase()}${pkg.colorScheme.slice(1)}`]}`}
             >
+              {pkg.isOnSale && (
+                <img
+                  src="/sale-tag-icon.svg"
+                  alt="מבצע"
+                  className={styles.saleIcon}
+                />
+              )}
               <h2 className={styles.packageTitle}>{pkg.title}</h2>
               <div className={styles.price}>{pkg.price}</div>
               <ul className={styles.featuresList}>
