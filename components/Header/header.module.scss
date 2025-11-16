@@ -61,13 +61,8 @@
 }
 
 .whatsappIcon {
-  width: 32px;
-  height: 32px;
-
-  @include breakpoint(lg) {
-    width: 36px;
-    height: 36px;
-  }
+  width: 48px;
+  height: 48px;
 }
 
 .phoneNumber {

@@ -57,13 +57,9 @@ export const Header = ({ navigation = defaultNavigation }: HeaderProps) => {
               src="/512px-WhatsApp.svg.webp"
               alt="WhatsApp"
               className={styles.whatsappIcon}
-              width="32"
-              height="32"
             />
           </a>
-          <a href="tel:0542281004" className={styles.phoneNumber}>
-            054-228-1004
-          </a>
+          <span className={styles.phoneNumber}>054-228-1004</span>
         </div>
 
         {/* Center - Navigation */}
