@@ -1,5 +1,5 @@
-@import '../../styles/variables';
-@import '../../styles/mixins';
+@import "../../styles/variables";
+@import "../../styles/mixins";
 
 .header {
   position: fixed;
@@ -20,25 +20,112 @@
 
 .container {
   @include container;
-  @include flex-between;
-  height: 140px;
+  display: flex;
+  flex-direction: row;
   align-items: center;
+  justify-content: space-between;
+
+  height: 140px;
+  position: relative;
+  gap: $spacing-xl;
+
+  @include breakpoint(md) {
+    height: 140px;
+  }
+}
+
+.contacts {
+  display: none;
+
+  @include breakpoint(md) {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    flex: 1;
+    min-width: 250px;
+    justify-content: flex-start;
+  }
+}
+
+.contactLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $text-dark;
+  text-decoration: none;
+  transition: opacity $transition-fast;
+  flex-shrink: 0;
+  height: fit-content;
+  margin: 0;
+  padding: 0;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+.whatsappIcon {
+  width: 20px;
+  height: 20px;
+  max-width: 20px;
+  max-height: 20px;
+  min-width: 20px;
+  min-height: 20px;
+  object-fit: contain;
+  display: block;
+  flex-shrink: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.phoneIcon {
+  width: 25px;
+  height: 25px;
+  max-width: 25px;
+  max-height: 25px;
+  object-fit: contain;
+  display: block;
+  flex-shrink: 0;
+}
+
+.phoneNumber {
+  font-family: $font-primary;
+  font-size: 0.8125rem;
+  font-weight: 300;
+  color: $text-dark;
+  text-decoration: none;
+  letter-spacing: 0.2px;
+  transition: opacity $transition-fast;
+  white-space: nowrap;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+
+  &:hover {
+    opacity: 0.7;
+  }
 
   @include breakpoint(lg) {
-    height: 140px;
+    font-size: 0.875rem;
   }
 }
 
 .logo {
   display: flex;
   align-items: center;
-  text-decoration: none;
-  transition: opacity $transition-fast;
-  height: 120px;
-  overflow: visible;
+  justify-content: center;
 
-  &:hover {
-    opacity: 0.8;
+  flex: 1;
+  min-width: 250px;
+  max-width: 250px;
+
+  @include breakpoint(md) {
+    min-width: 250px;
+    max-width: 250px;
   }
 }
 
@@ -54,13 +141,13 @@
 
 .nav {
   display: none;
-  flex: 1;
 
   @include breakpoint(md) {
     display: flex;
-    align-items: center;
+    flex: 2; // ⬅ MOST IMPORTANT
+    justify-content: center; // ⬅ CENTER LINKS
     gap: $spacing-lg;
-    justify-content: flex-start;
+    flex-wrap: nowrap;
   }
 }
 
@@ -75,7 +162,7 @@
   transition: color $transition-fast;
 
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     bottom: -8px;
     left: 0;
@@ -178,4 +265,3 @@
     color: $primary-color;
   }
 }
-

@@ -45,6 +45,15 @@ export const Header = ({ navigation = defaultNavigation }: HeaderProps) => {
   return (
     <header className={`${styles.header} ${isScrolled ? styles.scrolled : ''}`}>
       <div className={styles.container}>
+        {/* Left Section - Contacts */}
+        <div className={styles.contacts}>
+          <a href="https://wa.me/972586645622" target="_blank" rel="noopener noreferrer" className={styles.contactLink} aria-label="WhatsApp">
+            <img src="/512px-WhatsApp.svg.webp" alt="WhatsApp" className={styles.whatsappIcon} width="20" height="20" />
+          </a>
+          <a href="tel:0586645622" className={styles.phoneNumber}>058-664-5622</a>
+        </div>
+
+        {/* Middle Section - Navigation Links */}
         <nav className={styles.nav}>
           {navigation.map((item) => (
             <Link
@@ -59,6 +68,7 @@ export const Header = ({ navigation = defaultNavigation }: HeaderProps) => {
           ))}
         </nav>
 
+        {/* Right Section - Logo */}
         <Link href="/" className={styles.logo}>
           <img 
             src="/logo.jpg" 
@@ -68,7 +78,6 @@ export const Header = ({ navigation = defaultNavigation }: HeaderProps) => {
               console.error('Logo failed to load from /logo.jpg');
               const img = e.target as HTMLImageElement;
               img.style.display = 'none';
-              // Fallback: try different path
               img.src = '/logo.jpg';
             }}
             onLoad={() => console.log('Logo loaded successfully from /logo.jpg')}
