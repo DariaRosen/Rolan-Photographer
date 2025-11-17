@@ -11,13 +11,13 @@ interface HeaderProps {
 }
 
 const defaultNavigation: NavigationItem[] = [
-  { label: "צור קשר", href: "/contact" },
-  { label: "לקוחות ממליצים", href: "/testimonials" },
-  { label: "מחירון", href: "/pricing" },
-  { label: "הדפסות", href: "/prints" },
-  { label: "גלריה", href: "/gallery" },
-  { label: "הסיפור שלי", href: "/about" },
-  { label: "בית", href: "/" },
+  { label: "בית", href: "/#home" },
+  { label: "הסיפור שלי", href: "/#about" },
+  { label: "גלריה", href: "/#gallery" },
+  { label: "הדפסות", href: "/#prints" },
+  { label: "מחירון", href: "/#pricing" },
+  { label: "לקוחות ממליצים", href: "/#testimonials" },
+  { label: "צור קשר", href: "/#contact" },
 ];
 
 export const Header = ({ navigation = defaultNavigation }: HeaderProps) => {
