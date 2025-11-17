@@ -17,8 +17,8 @@ const playfairDisplay = Playfair_Display({
 })
 
 export const metadata: Metadata = {
-  title: 'Photography - Professional Photography Services',
-  description: 'Professional photography services for weddings, portraits, events, and commercial projects.',
+  title: 'Rolan - Professional Photography',
+  description: 'Professional photography services for portraits, events, and commercial projects.',
 }
 
 export default function RootLayout({
