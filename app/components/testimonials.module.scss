@@ -20,13 +20,22 @@
   font-weight: 400;
   color: $text-dark;
   text-align: center;
-  margin-bottom: $spacing-xl;
+  margin-bottom: $spacing-sm;
   letter-spacing: 1px;
 
   @include breakpoint(lg) {
     font-size: $fs-4xl;
-    margin-bottom: $spacing-2xl;
+    margin-bottom: $spacing-md;
   }
+}
+
+.subtitle {
+  font-family: $font-primary;
+  font-size: $fs-base;
+  color: $text-dark;
+  text-align: center;
+  margin-bottom: $spacing-lg;
+  line-height: 1.4;
 }
 
 .carouselContainer {

@@ -8,6 +8,11 @@ export const Contact = () => {
   return (
     <Main>
       <div className={styles.contact}>
+        <div className={styles.intro}>
+          <p className={styles.mainText}>זמינה לכל שאלה!</p>
+          <p className={styles.subText}>בואו נתכנן יחד יום בלתי נשכח!</p>
+        </div>
+
         <div className={styles.container}>
           <div className={styles.imageWrapper}>
             <Image
@@ -20,13 +25,6 @@ export const Contact = () => {
           </div>
 
           <div className={styles.content}>
-            <div className={styles.intro}>
-              <p className={styles.mainText}>
-               זמינה לכל שאלה!
-              </p>
-              <p className={styles.subText}>בואו נתכנן יחד יום בלתי נשכח!</p>
-            </div>
-
             <div className={styles.contactInfo}>
               <div className={styles.contactItem}>
                 <svg
