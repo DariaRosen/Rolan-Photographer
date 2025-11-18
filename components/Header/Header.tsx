@@ -80,7 +80,7 @@ export const Header = ({ navigation = defaultNavigation }: HeaderProps) => {
 
         {/* Right - Logo */}
         <Link href="/" className={styles.logo}>
-          <img src="/logo.jpg" alt="Logo" className={styles.logoImage} />
+          <img src="/logo.png" alt="Logo" className={styles.logoImage} />
         </Link>
 
         {/* Mobile Button */}
