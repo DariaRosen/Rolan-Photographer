@@ -23,7 +23,7 @@ export const Home = () => {
           </p>
         </div>
         <div className={styles.carouselSection}>
-          <Carousel images={carouselImages} autoPlayInterval={4000} />
+          <Carousel images={carouselImages} />
         </div>
       </div>
     </Main>
