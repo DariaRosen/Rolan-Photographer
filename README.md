@@ -40,7 +40,7 @@ Boutique-grade landing page crafted for a luxury photographer brand. Built with 
 | **Tooling**  | ESLint, Prettier, Supabase client scaffold |
 | **Hosting**  | Vercel (`npm run build` → static export) |
 
-> ⚠️ _Sass Note_: The codebase still uses `@import`, which triggers Dart Sass deprecation warnings during build. Migrating to `@use`/`@forward` is planned.
+> 💡 _Sass Note_: Styles now rely on the modern `@use`/`@forward` module system—no deprecated `@import` statements remain.
 
 ---
 
@@ -114,7 +114,6 @@ npm run start   # serve optimized output
 
 ## 🧭 Future Enhancements
 
-- Migrate Sass `@import` statements to `@use` / `@forward`.
 - Hook up Supabase to drive galleries, testimonials, and pricing dynamically.
 - Add bilingual toggle (Hebrew ↔ English) with localized copy.
 - Integrate contact form submissions via Resend/Formspree.
