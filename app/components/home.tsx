@@ -1,19 +1,31 @@
 import styles from "./home.module.scss";
 import { Main } from "@/components/Main/Main";
 import { Carousel } from "@/components/Carousel/carousel";
+import { cloudinary } from "@/lib/cloudinary";
 
-// Sample images - replace with actual photography images
-const carouselImages = [
-  { src: "/images/photo1.PNG", alt: "Photography Portfolio Image 1" },
-  { src: "/images/photo2.PNG", alt: "Photography Portfolio Image 2" },
-  { src: "/images/photo3.PNG", alt: "Photography Portfolio Image 3" },
-  { src: "/images/photo4.PNG", alt: "Photography Portfolio Image 4" },
-  { src: "/images/photo5.PNG", alt: "Photography Portfolio Image 5" },
-  { src: "/images/photo6.PNG", alt: "Photography Portfolio Image 6" },
-  { src: "/images/photo7.PNG", alt: "Photography Portfolio Image 7" },
-];
+async function getCarouselImages() {
+  try {
+    const result = await cloudinary.search
+      .expression('folder:carousel')
+      .sort_by([{ created_at: 'desc' }])
+      .max_results(50)
+      .execute();
 
-export const Home = () => {
+    const images = result.resources.map((resource: any) => ({
+      src: resource.secure_url,
+      alt: resource.public_id.split('/').pop() || 'Carousel Image',
+    }));
+
+    return images;
+  } catch (error) {
+    console.error('Error fetching carousel images from Cloudinary:', error);
+    return [];
+  }
+}
+
+export const Home = async () => {
+  const carouselImages = await getCarouselImages();
+
   return (
     <Main>
       <div className={styles.home}>

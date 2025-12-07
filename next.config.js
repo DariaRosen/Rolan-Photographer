@@ -5,7 +5,13 @@ const nextConfig = {
     includePaths: ['./styles'],
   },
   images: {
-    remotePatterns: [],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+        pathname: '/**',
+      },
+    ],
   },
 }
 
