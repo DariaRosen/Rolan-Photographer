@@ -31,6 +31,7 @@
 
   min-height: auto;
   gap: $spacing-md;
+  overflow: visible; // Ensure content is not clipped
 
   @include breakpoint(md) {
     flex-direction: row;
@@ -39,10 +40,12 @@
     align-items: flex-start;
     padding: $spacing-md $spacing-xl;
     gap: $spacing-md;
+    overflow: visible;
   }
 
-  @include breakpoint(xl) {
-    flex-wrap: nowrap; // Prevent wrapping on XL screens
+  @include breakpoint(2xl) {
+    flex-wrap: nowrap; // Prevent wrapping only on very large screens
+    overflow: visible;
   }
 }
 
@@ -62,10 +65,10 @@
     min-width: 0; // Allow flexbox to shrink below content size
   }
 
-  @include breakpoint(xl) {
+  @include breakpoint(2xl) {
     margin-right: auto;
     order: 1;
-    flex-shrink: 0; // Don't shrink on XL
+    flex-shrink: 0; // Don't shrink on 2XL
   }
 }
 
@@ -123,9 +126,9 @@
     min-width: 220px;
   }
 
-  @include breakpoint(xl) {
-    order: 3; // Move to right on extra large screens
-    flex-shrink: 0; // Don't shrink on XL
+  @include breakpoint(2xl) {
+    order: 3; // Move to right on very large screens (2XL)
+    flex-shrink: 0; // Don't shrink on 2XL
     width: 250px;
     max-width: 250px;
   }
@@ -152,9 +155,9 @@
     align-items: center;
     gap: $spacing-sm;
     flex-wrap: nowrap;
-    padding-top: $spacing-sm;
+    padding: $spacing-sm $spacing-md; // Add horizontal padding
     overflow-x: auto;
-    overflow-y: hidden;
+    overflow-y: visible; // Allow underline animation to show
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     
@@ -168,17 +171,26 @@
 
   @include breakpoint(lg) {
     gap: $spacing-md;
-    flex-basis: 100%; // Keep on separate row until XL
+    flex-basis: 100%; // Keep on separate row until 2XL
+    padding: $spacing-sm $spacing-lg; // More padding on larger screens
   }
 
   @include breakpoint(xl) {
+    gap: $spacing-lg;
+    flex-basis: 100%; // Still keep on separate row on XL
+    padding: $spacing-sm $spacing-xl;
+  }
+
+  @include breakpoint(2xl) {
     flex: 1 1 auto;
-    flex-basis: auto; // Allow to be on same row on XL
+    flex-basis: auto; // Allow to be on same row on 2XL
     width: auto;
     order: 2; // Move to center between contacts and logo
-    padding-top: 0;
+    padding: 0 $spacing-md; // Horizontal padding to prevent clipping
     gap: $spacing-lg;
     overflow-x: visible;
+    overflow-y: visible; // Allow underline animation to show
+    min-width: 0; // Allow flex shrinking if needed
   }
 }
 
@@ -194,6 +206,7 @@
   white-space: nowrap;
   flex-shrink: 0;
   min-width: fit-content;
+  padding-bottom: 8px; // Add bottom padding for underline animation
 
   text-decoration: none;
   transition: all 0.25s ease;
@@ -201,23 +214,24 @@
 
   @include breakpoint(md) {
     font-size: 1.1rem;
-    padding: 0 $spacing-xs;
+    padding: 0 $spacing-xs 8px $spacing-xs;
   }
 
   @include breakpoint(lg) {
     font-size: 1.2rem;
+    padding: 0 $spacing-sm 8px $spacing-sm;
   }
 
-  @include breakpoint(xl) {
+  @include breakpoint(2xl) {
     font-size: 1.4rem;
-    padding: 0;
+    padding: 0 $spacing-xs 8px $spacing-xs; // Keep some padding
   }
 
   /* underline animation line (hidden by default) */
   &::after {
     content: "";
     position: absolute;
-    bottom: -5px;
+    bottom: 2px; // Adjust to be within padding area
     left: 50%;
     width: 0;
     height: 3px;
