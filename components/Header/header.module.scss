@@ -30,7 +30,6 @@
   justify-content: center;
 
   min-height: auto;
-  gap: $spacing-md;
   overflow: visible; // Ensure content is not clipped
 
   @include breakpoint(md) {
@@ -39,7 +38,6 @@
     justify-content: space-between;
     align-items: flex-start;
     padding: $spacing-md $spacing-xl;
-    gap: $spacing-md;
     overflow: visible;
   }
 
@@ -135,9 +133,32 @@
 }
 
 .logoImage {
-  width: 120px;
-  height: 120px;
+  width: 80px;
+  height: 80px;
+  min-width: 80px;
+  min-height: 80px;
   object-fit: contain;
+  transition: width 0.3s ease, height 0.3s ease;
+
+  @include breakpoint(md) {
+    width: 90px;
+    height: 90px;
+  }
+
+  @include breakpoint(lg) {
+    width: 100px;
+    height: 100px;
+  }
+
+  @include breakpoint(xl) {
+    width: 110px;
+    height: 110px;
+  }
+
+  @include breakpoint(2xl) {
+    width: 120px;
+    height: 120px;
+  }
 }
 
 /* CENTER - NAVIGATION */
