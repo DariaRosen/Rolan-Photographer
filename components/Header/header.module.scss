@@ -22,7 +22,7 @@
 .container {
   width: 100%;
   max-width: 100%;
-  padding: $spacing-md $spacing-xl;
+  padding: $spacing-md $spacing-md;
   margin: 0;
   display: flex;
   flex-direction: column;
@@ -36,14 +36,22 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
-    align-items: flex-start;
-    padding: $spacing-md $spacing-xl;
+    align-items: center; // Center items vertically
+    padding: $spacing-sm $spacing-md;
+    overflow: visible;
+  }
+
+  @include breakpoint(lg) {
+    padding: $spacing-sm $spacing-lg;
+  }
+
+  @include breakpoint(xl) {
+    flex-wrap: nowrap; // Prevent wrapping on XL screens and above
     overflow: visible;
   }
 
   @include breakpoint(2xl) {
-    flex-wrap: nowrap; // Prevent wrapping only on very large screens
-    overflow: visible;
+    padding: $spacing-md $spacing-xl;
   }
 }
 
@@ -83,6 +91,21 @@
 .whatsappIcon {
   width: 48px;
   height: 48px;
+
+  @include breakpoint(md) {
+    width: 40px;
+    height: 40px;
+  }
+
+  @include breakpoint(lg) {
+    width: 44px;
+    height: 44px;
+  }
+
+  @include breakpoint(xl) {
+    width: 48px;
+    height: 48px;
+  }
 }
 
 .phoneNumber {
@@ -90,6 +113,26 @@
   font-weight: 300;
   color: $text-dark;
   white-space: nowrap;
+  transition: font-size 0.3s ease;
+
+  // Default size
+  @include breakpoint(md) {
+    font-size: 1.5rem;
+  }
+
+  // Step 3: Phone number starts getting smaller
+  @media (max-width: 1000px) {
+    @include breakpoint(md) {
+      font-size: 1.4rem;
+    }
+  }
+
+  // Step 4: Phone number gets even smaller
+  @media (max-width: 900px) {
+    @include breakpoint(md) {
+      font-size: 1.3rem;
+    }
+  }
 
   &:hover {
     opacity: 0.7;
@@ -107,28 +150,28 @@
   order: 2;
 
   @include breakpoint(md) {
-    width: 250px;
-    max-width: 250px;
+    width: 200px;
+    max-width: 200px;
     order: 2; // Stay on top row with contacts
     margin-left: auto;
     flex-basis: auto;
     flex-shrink: 1; // Allow shrinking to stay on same row
     flex-grow: 0;
-    min-width: 200px; // Minimum width to prevent too much shrinking
+    min-width: 150px; // Minimum width to prevent too much shrinking
   }
 
   @include breakpoint(lg) {
-    width: 250px;
-    max-width: 250px;
+    width: 220px;
+    max-width: 220px;
     flex-shrink: 1;
-    min-width: 220px;
+    min-width: 180px;
   }
 
-  @include breakpoint(2xl) {
-    order: 3; // Move to right on very large screens (2XL)
-    flex-shrink: 0; // Don't shrink on 2XL
+  @include breakpoint(xl) {
     width: 250px;
     max-width: 250px;
+    order: 3; // Move to right on XL screens
+    flex-shrink: 0; // Don't shrink on XL
   }
 }
 
@@ -140,24 +183,34 @@
   object-fit: contain;
   transition: width 0.3s ease, height 0.3s ease;
 
-  @include breakpoint(md) {
-    width: 90px;
-    height: 90px;
-  }
-
-  @include breakpoint(lg) {
-    width: 100px;
-    height: 100px;
-  }
-
+  // Step 1: Logo 110x110 (default for XL screens)
   @include breakpoint(xl) {
     width: 110px;
     height: 110px;
   }
 
-  @include breakpoint(2xl) {
-    width: 120px;
-    height: 120px;
+  // Step 2: Logo 100x100
+  @media (max-width: 1200px) {
+    @include breakpoint(md) {
+      width: 100px;
+      height: 100px;
+    }
+  }
+
+  // Step 3: Logo 90x90
+  @media (max-width: 1000px) {
+    @include breakpoint(md) {
+      width: 90px;
+      height: 90px;
+    }
+  }
+
+  // Step 4: Logo 80x80
+  @media (max-width: 900px) {
+    @include breakpoint(md) {
+      width: 80px;
+      height: 80px;
+    }
   }
 }
 
@@ -167,20 +220,20 @@
 
   @include breakpoint(md) {
     display: flex;
-    width: 100%;
-    order: 3; // Always below contacts and logo
-    flex-basis: 100%; // Force to new row - this ensures it wraps first
-    flex-shrink: 0;
-    flex-grow: 0;
+    flex: 1 1 auto;
+    width: auto;
+    order: 2; // Stay on same row between contacts and logo
+    flex-basis: auto;
+    flex-shrink: 1;
     justify-content: center;
     align-items: center;
-    gap: $spacing-sm;
     flex-wrap: nowrap;
-    padding: $spacing-sm $spacing-md; // Add horizontal padding
+    padding: 0 $spacing-md; // Default padding
     overflow-x: auto;
     overflow-y: visible; // Allow underline animation to show
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
+    transition: gap 0.3s ease, padding 0.3s ease;
     
     &::-webkit-scrollbar {
       display: none;
@@ -188,30 +241,35 @@
 
     direction: rtl;
     flex-direction: row-reverse;
-  }
 
-  @include breakpoint(lg) {
+    // Default gaps (Step 1)
     gap: $spacing-md;
-    flex-basis: 100%; // Keep on separate row until 2XL
-    padding: $spacing-sm $spacing-lg; // More padding on larger screens
-  }
 
-  @include breakpoint(xl) {
-    gap: $spacing-lg;
-    flex-basis: 100%; // Still keep on separate row on XL
-    padding: $spacing-sm $spacing-xl;
-  }
+    // Step 2: Smaller gaps
+    @media (max-width: 1200px) {
+      gap: $spacing-sm;
+    }
 
-  @include breakpoint(2xl) {
-    flex: 1 1 auto;
-    flex-basis: auto; // Allow to be on same row on 2XL
-    width: auto;
-    order: 2; // Move to center between contacts and logo
-    padding: 0 $spacing-md; // Horizontal padding to prevent clipping
-    gap: $spacing-lg;
-    overflow-x: visible;
-    overflow-y: visible; // Allow underline animation to show
-    min-width: 0; // Allow flex shrinking if needed
+    // Step 3: Even smaller gaps
+    @media (max-width: 1000px) {
+      gap: $spacing-xs;
+      padding: 0 $spacing-sm;
+    }
+
+    // Step 4: Very small gaps
+    @media (max-width: 900px) {
+      gap: 0.25rem;
+      padding: 0 $spacing-xs;
+    }
+
+    // Step 5: Navigation jumps down
+    @media (max-width: 800px) {
+      width: 100%;
+      order: 3; // Move below contacts and logo
+      flex-basis: 100%; // Force to new row
+      padding: $spacing-xs $spacing-md;
+      gap: $spacing-xs;
+    }
   }
 }
 
@@ -234,18 +292,21 @@
   cursor: pointer;
 
   @include breakpoint(md) {
-    font-size: 1.1rem;
     padding: 0 $spacing-xs 8px $spacing-xs;
-  }
+    transition: font-size 0.3s ease;
 
-  @include breakpoint(lg) {
-    font-size: 1.2rem;
-    padding: 0 $spacing-sm 8px $spacing-sm;
-  }
-
-  @include breakpoint(2xl) {
+    // Default size (Step 1)
     font-size: 1.4rem;
-    padding: 0 $spacing-xs 8px $spacing-xs; // Keep some padding
+
+    // Step 3: Nav links go smaller
+    @media (max-width: 1000px) {
+      font-size: 1.2rem;
+    }
+
+    // Step 4: Nav links go even smaller
+    @media (max-width: 900px) {
+      font-size: 1rem;
+    }
   }
 
   /* underline animation line (hidden by default) */
