@@ -48,7 +48,7 @@ export const Header = ({ navigation = defaultNavigation }: HeaderProps) => {
         {/* Left - Contacts */}
         <div className={styles.contacts}>
           <a
-            href="https://wa.me/972586645622"
+            href="https://wa.me/972542281004"
             target="_blank"
             rel="noopener noreferrer"
             className={styles.contactLink}
