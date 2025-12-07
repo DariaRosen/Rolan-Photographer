@@ -13,19 +13,17 @@
 }
 
 .title {
-  font-family: $font-secondary;
-  font-size: $fs-4xl;
+  font-family: $font-primary;
+  font-size: $fs-3xl;
   font-weight: 400;
   margin-bottom: $spacing-xl;
   color: $text-dark;
-  letter-spacing: 3px;
-  line-height: 1.2;
+  letter-spacing: 1px;
   text-align: center;
 
   @include breakpoint(lg) {
-    font-size: 3.5rem;
+    font-size: $fs-4xl;
     margin-bottom: $spacing-2xl;
-    letter-spacing: 4px;
   }
 }
 
