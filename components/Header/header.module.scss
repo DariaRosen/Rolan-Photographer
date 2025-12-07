@@ -22,18 +22,27 @@
 .container {
   width: 100%;
   max-width: 100%;
-  padding: 0 $spacing-xl;
+  padding: $spacing-md $spacing-xl;
   margin: 0;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
 
-  height: 140px;
-  gap: $spacing-xl;
+  min-height: auto;
+  gap: $spacing-md;
 
   @include breakpoint(md) {
-    height: 140px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: $spacing-md $spacing-xl;
+    gap: $spacing-md;
+  }
+
+  @include breakpoint(xl) {
+    flex-wrap: nowrap; // Prevent wrapping on XL screens
   }
 }
 
@@ -45,9 +54,18 @@
     display: flex;
     align-items: center;
     gap: 0.75rem;
+    order: 1;
+    flex-shrink: 1; // Allow shrinking to keep with logo
+    flex-grow: 0;
+    width: auto;
+    flex-basis: auto;
+    min-width: 0; // Allow flexbox to shrink below content size
+  }
 
-    margin-right: auto; /* PUSH LEFT */
-    flex-shrink: 0;
+  @include breakpoint(xl) {
+    margin-right: auto;
+    order: 1;
+    flex-shrink: 0; // Don't shrink on XL
   }
 }
 
@@ -83,9 +101,34 @@
   align-items: center;
   justify-content: flex-end;
 
-  width: 250px;
+  width: auto;
   flex-shrink: 0;
-  margin-left: auto; /* PUSH RIGHT */
+  order: 2;
+
+  @include breakpoint(md) {
+    width: 250px;
+    max-width: 250px;
+    order: 2; // Stay on top row with contacts
+    margin-left: auto;
+    flex-basis: auto;
+    flex-shrink: 1; // Allow shrinking to stay on same row
+    flex-grow: 0;
+    min-width: 200px; // Minimum width to prevent too much shrinking
+  }
+
+  @include breakpoint(lg) {
+    width: 250px;
+    max-width: 250px;
+    flex-shrink: 1;
+    min-width: 220px;
+  }
+
+  @include breakpoint(xl) {
+    order: 3; // Move to right on extra large screens
+    flex-shrink: 0; // Don't shrink on XL
+    width: 250px;
+    max-width: 250px;
+  }
 }
 
 .logoImage {
@@ -100,13 +143,42 @@
 
   @include breakpoint(md) {
     display: flex;
-    flex: 2;
+    width: 100%;
+    order: 3; // Always below contacts and logo
+    flex-basis: 100%; // Force to new row - this ensures it wraps first
+    flex-shrink: 0;
+    flex-grow: 0;
     justify-content: center;
-    gap: $spacing-lg;
+    align-items: center;
+    gap: $spacing-sm;
     flex-wrap: nowrap;
+    padding-top: $spacing-sm;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    
+    &::-webkit-scrollbar {
+      display: none;
+    }
 
-    direction: rtl; // Text flows RTL
-    flex-direction: row-reverse; // Children appear right → left
+    direction: rtl;
+    flex-direction: row-reverse;
+  }
+
+  @include breakpoint(lg) {
+    gap: $spacing-md;
+    flex-basis: 100%; // Keep on separate row until XL
+  }
+
+  @include breakpoint(xl) {
+    flex: 1 1 auto;
+    flex-basis: auto; // Allow to be on same row on XL
+    width: auto;
+    order: 2; // Move to center between contacts and logo
+    padding-top: 0;
+    gap: $spacing-lg;
+    overflow-x: visible;
   }
 }
 
@@ -119,10 +191,27 @@
   color: $text-dark;
   position: relative;
   display: inline-block;
+  white-space: nowrap;
+  flex-shrink: 0;
+  min-width: fit-content;
 
   text-decoration: none;
   transition: all 0.25s ease;
   cursor: pointer;
+
+  @include breakpoint(md) {
+    font-size: 1.1rem;
+    padding: 0 $spacing-xs;
+  }
+
+  @include breakpoint(lg) {
+    font-size: 1.2rem;
+  }
+
+  @include breakpoint(xl) {
+    font-size: 1.4rem;
+    padding: 0;
+  }
 
   /* underline animation line (hidden by default) */
   &::after {
