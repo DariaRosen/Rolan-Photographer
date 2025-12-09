@@ -39,6 +39,7 @@
     align-items: center; // Center items vertically
     padding: $spacing-sm $spacing-md;
     overflow: visible;
+    position: relative;
   }
 
   @include breakpoint(lg) {
@@ -53,6 +54,13 @@
   @include breakpoint(2xl) {
     padding: $spacing-md $spacing-xl;
   }
+
+  // Compact header mode around tablet widths (~790px)
+  @media (max-width: 820px) {
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+  }
 }
 
 /* LEFT - CONTACTS */
@@ -64,17 +72,29 @@
     align-items: center;
     gap: 0.75rem;
     order: 1;
-    flex-shrink: 1; // Allow shrinking to keep with logo
+    flex-shrink: 0; // Don't shrink contacts
     flex-grow: 0;
     width: auto;
     flex-basis: auto;
-    min-width: 0; // Allow flexbox to shrink below content size
+    margin-right: $spacing-xl; // Larger gap between phone number and nav links
+    transition: margin-right 0.3s ease;
+
+    // Reduce gap on smaller screens but keep minimum spacing
+    @media (max-width: 1200px) {
+      margin-right: $spacing-lg;
+    }
+
+    @media (max-width: 1000px) {
+      margin-right: $spacing-md;
+    }
+
+    @media (max-width: 900px) {
+      margin-right: $spacing-sm;
+    }
   }
 
   @include breakpoint(2xl) {
-    margin-right: auto;
-    order: 1;
-    flex-shrink: 0; // Don't shrink on 2XL
+    margin-right: $spacing-xl; // Keep gap even on 2XL
   }
 }
 
@@ -91,21 +111,10 @@
 .whatsappIcon {
   width: 48px;
   height: 48px;
-
-  @include breakpoint(md) {
-    width: 40px;
-    height: 40px;
-  }
-
-  @include breakpoint(lg) {
-    width: 44px;
-    height: 44px;
-  }
-
-  @include breakpoint(xl) {
-    width: 48px;
-    height: 48px;
-  }
+  object-fit: contain; // Keep circular shape
+  border-radius: 50%; // Ensure it stays circular
+  flex-shrink: 0; // Don't shrink
+  transition: none; // Fixed size across all breakpoints
 }
 
 .phoneNumber {
@@ -114,23 +123,52 @@
   color: $text-dark;
   white-space: nowrap;
   transition: font-size 0.3s ease;
+  flex-shrink: 0; // Don't shrink - let font-size handle it
 
   // Default size
   @include breakpoint(md) {
     font-size: 1.5rem;
   }
 
-  // Step 3: Phone number starts getting smaller
+  // Slightly reduce when container is smaller than 1300px
+  @media (max-width: 1300px) {
+    @include breakpoint(md) {
+      font-size: 1.35rem;
+    }
+  }
+
+  // When container is smaller than 1264px: decrease phone number size
+  @media (max-width: 1264px) {
+    @include breakpoint(md) {
+      font-size: 1.3rem;
+    }
+  }
+
+  // Step 2: Phone number starts getting smaller earlier
+  @media (max-width: 1200px) {
+    @include breakpoint(md) {
+      font-size: 1.3rem;
+    }
+  }
+
+  // At 1190px: increase phone number size
+  @media (max-width: 1190px) {
+    @include breakpoint(md) {
+      font-size: 1.5rem;
+    }
+  }
+
+  // Step 3: Phone number gets smaller
   @media (max-width: 1000px) {
     @include breakpoint(md) {
-      font-size: 1.4rem;
+      font-size: 1.3rem;
     }
   }
 
   // Step 4: Phone number gets even smaller
   @media (max-width: 900px) {
     @include breakpoint(md) {
-      font-size: 1.3rem;
+      font-size: 1.2rem;
     }
   }
 
@@ -152,12 +190,11 @@
   @include breakpoint(md) {
     width: 200px;
     max-width: 200px;
-    order: 2; // Stay on top row with contacts
-    margin-left: auto;
+    order: 3; // Position logo on the right
     flex-basis: auto;
-    flex-shrink: 1; // Allow shrinking to stay on same row
+    flex-shrink: 0;
     flex-grow: 0;
-    min-width: 150px; // Minimum width to prevent too much shrinking
+    min-width: 150px;
   }
 
   @include breakpoint(lg) {
@@ -173,6 +210,19 @@
     order: 3; // Move to right on XL screens
     flex-shrink: 0; // Don't shrink on XL
   }
+
+  // Center logo when navigation collapses on compact widths
+  @media (max-width: 820px) {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    order: 2;
+    justify-content: center;
+    margin: 0 auto;
+    width: 80px;
+    max-width: 80px;
+  }
 }
 
 .logoImage {
@@ -183,10 +233,15 @@
   object-fit: contain;
   transition: width 0.3s ease, height 0.3s ease;
 
-  // Step 1: Logo 110x110 (default for XL screens)
+  // Step 1: Logo 120x120 on wide containers (down to 1200px)
+  @include breakpoint(md) {
+    width: 120px;
+    height: 120px;
+  }
+
   @include breakpoint(xl) {
-    width: 110px;
-    height: 110px;
+    width: 120px;
+    height: 120px;
   }
 
   // Step 2: Logo 100x100
@@ -212,6 +267,14 @@
       height: 80px;
     }
   }
+
+  // Compact centered logo size
+  @media (max-width: 820px) {
+    width: 60px;
+    height: 60px;
+    min-width: 60px;
+    min-height: 60px;
+  }
 }
 
 /* CENTER - NAVIGATION */
@@ -220,20 +283,48 @@
 
   @include breakpoint(md) {
     display: flex;
-    flex: 1 1 auto;
-    width: auto;
+    flex: 0 0 auto; // Don't grow/shrink - use fixed width
+    width: 650px; // Fixed width for centered navigation
+    min-width: 0;
     order: 2; // Stay on same row between contacts and logo
-    flex-basis: auto;
-    flex-shrink: 1;
-    justify-content: center;
+    flex-basis: 650px;
+    flex-shrink: 0;
+    flex-grow: 0;
+    justify-content: center; // Center nav links in the middle section
     align-items: center;
     flex-wrap: nowrap;
     padding: 0 $spacing-md; // Default padding
-    overflow-x: auto;
+    overflow-x: visible; // Don't cut letters - allow them to be visible
     overflow-y: visible; // Allow underline animation to show
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    transition: gap 0.3s ease, padding 0.3s ease;
+    transition: gap 0.3s ease, padding 0.3s ease, width 0.3s ease;
+
+    // Adjust width on different screen sizes
+    @media (max-width: 1300px) {
+      width: 600px;
+      flex-basis: 600px;
+    }
+
+    @media (max-width: 1200px) {
+      width: 550px;
+      flex-basis: 550px;
+    }
+
+    @media (max-width: 1100px) {
+      width: 500px;
+      flex-basis: 500px;
+    }
+
+    @media (max-width: 1000px) {
+      width: 450px;
+      flex-basis: 450px;
+    }
+
+    @media (max-width: 900px) {
+      width: 400px;
+      flex-basis: 400px;
+    }
     
     &::-webkit-scrollbar {
       display: none;
@@ -242,24 +333,44 @@
     direction: rtl;
     flex-direction: row-reverse;
 
-    // Default gaps (Step 1)
-    gap: $spacing-md;
+    // Default gap: 1rem (wide containers)
+    gap: 1rem;
+
+    // When container is smaller than 1300px: gap becomes 0.5rem
+    @media (max-width: 1300px) {
+      gap: 0.5rem;
+    }
+
+    // When container is smaller than 1264px: gap remains 0.5rem
+    @media (max-width: 1264px) {
+      gap: 0.5rem;
+    }
 
     // Step 2: Smaller gaps
     @media (max-width: 1200px) {
-      gap: $spacing-sm;
+      gap: 0;
+      padding: 0 $spacing-sm;
+      width: 100%;
+      flex-basis: 100%;
+      order: 4; // Move nav below contacts and logo on smaller containers
+      justify-content: center;
+    }
+
+    // At 1190px: gap becomes 0
+    @media (max-width: 1190px) {
+      gap: 0;
     }
 
     // Step 3: Even smaller gaps
     @media (max-width: 1000px) {
-      gap: $spacing-xs;
-      padding: 0 $spacing-sm;
+      gap: $spacing-xs; // 0.5rem
+      padding: 0 $spacing-xs;
     }
 
     // Step 4: Very small gaps
     @media (max-width: 900px) {
-      gap: 0.25rem;
-      padding: 0 $spacing-xs;
+      gap: 0.3rem;
+      padding: 0 0.5rem;
     }
 
     // Step 5: Navigation jumps down
@@ -269,6 +380,11 @@
       flex-basis: 100%; // Force to new row
       padding: $spacing-xs $spacing-md;
       gap: $spacing-xs;
+    }
+
+    // Hide nav around 790px to switch to hamburger
+    @media (max-width: 820px) {
+      display: none;
     }
   }
 }
@@ -294,13 +410,31 @@
   @include breakpoint(md) {
     padding: 0 $spacing-xs 8px $spacing-xs;
     transition: font-size 0.3s ease;
+    white-space: nowrap; // Don't cut letters
+    flex-shrink: 0; // Don't shrink individual items
+    overflow: visible; // Don't cut text
 
     // Default size (Step 1)
     font-size: 1.4rem;
 
-    // Step 3: Nav links go smaller
+    // When container is smaller than 1300px: decrease nav link size
+    @media (max-width: 1300px) {
+      font-size: 1.3rem;
+    }
+
+    // When container is smaller than 1264px: decrease nav link size
+    @media (max-width: 1264px) {
+      font-size: 1.3rem;
+    }
+
+    // Step 3: Nav links go smaller (but override at 1190px)
     @media (max-width: 1000px) {
       font-size: 1.2rem;
+    }
+
+    // At 1190px: increase nav link size
+    @media (max-width: 1190px) {
+      font-size: 1.4rem;
     }
 
     // Step 4: Nav links go even smaller
@@ -360,6 +494,15 @@
     height: 2px;
     background-color: $primary-color;
   }
+
+  // Re-enable hamburger on compact widths even within md breakpoint
+  @media (max-width: 820px) {
+    display: flex;
+    position: absolute;
+    right: $spacing-md;
+    top: 50%;
+    transform: translateY(-50%);
+  }
 }
 
 /* MOBILE MENU */
@@ -375,6 +518,12 @@
 
   @include breakpoint(md) {
     display: none;
+  }
+
+  // Re-enable dropdown around 820px when desktop nav is hidden
+  @media (max-width: 820px) {
+    display: block;
+    position: fixed;
   }
 
   &.open {
