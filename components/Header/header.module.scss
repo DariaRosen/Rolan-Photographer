@@ -523,7 +523,7 @@
 /* MOBILE MENU */
 .mobileMenu {
   position: fixed;
-  top: 120px;
+  top: 92px; // sit directly under the header/hamburger
   left: auto;
   right: 0;
   bottom: 0;
@@ -552,8 +552,8 @@
 .mobileNav {
   display: flex;
   flex-direction: column;
-  gap: $spacing-lg;
-  padding: $spacing-lg;
+  gap: $spacing-md; // tighter spacing between links
+  padding: $spacing-md $spacing-lg;
   align-items: flex-end;
 }
 
