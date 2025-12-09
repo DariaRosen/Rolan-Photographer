@@ -181,6 +181,11 @@
     }
   }
 
+  // Compact sizes on small/mobile
+  @media (max-width: 820px) {
+    font-size: 0.85rem;
+  }
+
   &:hover {
     opacity: 0.7;
   }
