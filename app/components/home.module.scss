@@ -51,5 +51,10 @@
     font-size: $fs-4xl;
     line-height: 1.5;
   }
+
+  // Reduce description size when header container (viewport) is very narrow
+  @media (max-width: 560px) {
+    font-size: 1rem;
+  }
 }
 
