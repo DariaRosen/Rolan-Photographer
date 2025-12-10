@@ -186,6 +186,11 @@
     font-size: 0.85rem;
   }
 
+  // Hide phone number when the header container gets very narrow
+  @media (max-width: 560px) {
+    display: none;
+  }
+
   &:hover {
     opacity: 0.7;
   }
