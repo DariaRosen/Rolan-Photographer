@@ -38,7 +38,7 @@
 
 .description {
   font-family: $font-primary;
-  font-size: $fs-3xl;
+  font-size: $fs-4xl;
   font-weight: 700;
   color: $text-dark;
   max-width: 650px;
@@ -55,6 +55,7 @@
   // Reduce description size when header container (viewport) is very narrow
   @media (max-width: 560px) {
     font-size: 1rem;
+    padding-top: 80px;
   }
 }
 
