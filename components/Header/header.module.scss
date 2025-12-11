@@ -569,8 +569,6 @@
 .mobileNav {
   display: flex;
   flex-direction: column;
-  gap: $spacing-md; // tighter spacing between links
-  padding: $spacing-md $spacing-lg;
   align-items: flex-end;
 }
 
