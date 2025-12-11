@@ -46,9 +46,9 @@
 .printsContainer {
   background-color: $secondary-color;
   border-radius: 4px;
-  overflow: hidden;
+  overflow: visible;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  padding: $spacing-xl $spacing-md;
+  padding: $spacing-xl $spacing-2xl;
   min-height: calc(100vh - 300px);
   display: flex;
   flex-direction: column;
@@ -56,23 +56,23 @@
   align-items: center;
 
   @include breakpoint(lg) {
-    padding: $spacing-2xl $spacing-xl;
+    padding: $spacing-2xl calc($spacing-2xl + 2rem);
   }
 
   @media (max-width: 1180px) {
-    padding: $spacing-xl $spacing-lg;
+    padding: $spacing-xl calc($spacing-xl + 1.5rem);
   }
 
   @media (max-width: 992px) {
-    padding: $spacing-lg $spacing-md;
+    padding: $spacing-lg calc($spacing-lg + 1rem);
   }
 
   @media (max-width: 880px) {
-    padding: $spacing-lg $spacing-sm;
+    padding: $spacing-lg calc($spacing-md + 0.75rem);
   }
 
   @media (max-width: 560px) {
-    padding: $spacing-md $spacing-sm;
+    padding: $spacing-md calc($spacing-md + 0.5rem);
   }
 }
 
