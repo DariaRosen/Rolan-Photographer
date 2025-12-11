@@ -37,12 +37,14 @@ export const Prints = () => {
       <div className={styles.prints}>
         <h1 className={styles.title}>הדפסות</h1>
 
-        <div className={styles.printsGrid}>
-          {printOptions.map((option) => (
-            <div key={option.id} className={styles.printBox}>
-              <h2 className={styles.printTitle}>{option.title}</h2>
-            </div>
-          ))}
+        <div className={styles.printsContainer}>
+          <div className={styles.printsGrid}>
+            {printOptions.map((option) => (
+              <div key={option.id} className={styles.printBox}>
+                <h2 className={styles.printTitle}>{option.title}</h2>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </Main>
