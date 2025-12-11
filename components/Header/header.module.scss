@@ -542,12 +542,14 @@
   left: auto;
   right: 0;
   bottom: 0;
-  background-color: $secondary-color;
+  background-color: rgba(255, 251, 248, 0.98);
+  backdrop-filter: blur(10px);
   transform: translateX(100%);
   transition: transform $transition-base;
   width: 75%;
   max-width: 360px;
   box-shadow: -12px 0 24px rgba(0, 0, 0, 0.12);
+  border-left: 1px solid rgba($border-color, 0.3);
 
   @include breakpoint(md) {
     display: none;
@@ -574,4 +576,14 @@
 
 .mobileNavItem {
   font-size: 1.2rem;
+  color: $text-dark;
+  padding: $spacing-sm $spacing-md;
+  border-radius: 4px;
+  transition: background-color $transition-base;
+  width: 100%;
+  text-align: right;
+
+  &:hover {
+    background-color: rgba($primary-color, 0.1);
+  }
 }
