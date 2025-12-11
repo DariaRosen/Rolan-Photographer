@@ -118,12 +118,6 @@ export const Testimonials = () => {
         <h1 className={styles.title}>לקוחות ממליצים</h1>
 
         <div className={styles.testimonialsContainer}>
-          <p className={styles.subtitle}>
-            זמינה לכל שאלה!
-            <br />
-            בואו נתכנן יחד יום בלתי נשכח!
-          </p>
-
           <div className={styles.carouselContainer}>
           <div className={styles.cardsContainer}>
             <button
