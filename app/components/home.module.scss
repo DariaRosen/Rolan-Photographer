@@ -45,33 +45,38 @@
   margin: 0 auto;
   line-height: 1.6;
   letter-spacing: 0.5px;
-  padding-top: calc(var(--header-height, 140px) + 40px);
+  padding-top: calc(var(--header-height, 140px) + 24px);
 
   // Step down as layout tightens and nav shifts (monotonic decreases)
   @media (max-width: 1180px) {
     font-size: 2.3rem;
     line-height: 1.5;
+    padding-top: calc(var(--header-height, 140px) + 20px);
   }
 
   @media (max-width: 992px) {
     font-size: 2rem;
     line-height: 1.45;
+    padding-top: calc(var(--header-height, 120px) + 18px);
   }
 
   @media (max-width: 880px) {
     font-size: 1.5rem;
     line-height: 1.35;
+    padding-top: calc(var(--header-height, 110px) + 16px);
   }
 
   @media (max-width: 820px) {
     font-size: 1.4rem;
     line-height: 1.35;
+    padding-top: calc(var(--header-height, 96px) + 14px);
   }
 
   // Reduce description size when header container (viewport) is very narrow
   @media (max-width: 560px) {
     font-size: 1.1rem;
     line-height: 1.35;
+    padding-top: calc(var(--header-height, 88px) + 12px);
   }
 }
 
