@@ -116,13 +116,15 @@ export const Testimonials = () => {
     <Main>
       <div className={styles.testimonials}>
         <h1 className={styles.title}>לקוחות ממליצים</h1>
-        <p className={styles.subtitle}>
-          זמינה לכל שאלה!
-          <br />
-          בואו נתכנן יחד יום בלתי נשכח!
-        </p>
 
-        <div className={styles.carouselContainer}>
+        <div className={styles.testimonialsContainer}>
+          <p className={styles.subtitle}>
+            זמינה לכל שאלה!
+            <br />
+            בואו נתכנן יחד יום בלתי נשכח!
+          </p>
+
+          <div className={styles.carouselContainer}>
           <div className={styles.cardsContainer}>
             <button
               className={styles.navButton}
@@ -186,6 +188,7 @@ export const Testimonials = () => {
               </svg>
             </button>
           </div>
+        </div>
         </div>
       </div>
     </Main>

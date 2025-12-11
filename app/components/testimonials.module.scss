@@ -2,15 +2,29 @@
 @use '../../styles/mixins' as *;
 
 .testimonials {
-  padding: $spacing-2xl $spacing-md;
+  padding: 0 $spacing-md;
   max-width: 1400px;
   margin: 0 auto;
   direction: rtl;
-  background-color: $secondary-color;
-  min-height: calc(100vh - 300px);
 
   @include breakpoint(lg) {
     padding: $spacing-2xl $spacing-xl;
+  }
+
+  @media (max-width: 1180px) {
+    padding: $spacing-xl $spacing-lg;
+  }
+
+  @media (max-width: 992px) {
+    padding: $spacing-lg $spacing-md;
+  }
+
+  @media (max-width: 880px) {
+    padding: $spacing-lg $spacing-sm;
+  }
+
+  @media (max-width: 560px) {
+    padding: $spacing-md $spacing-sm;
   }
 }
 
@@ -26,6 +40,39 @@
   @include breakpoint(lg) {
     font-size: $fs-4xl;
     margin-bottom: $spacing-md;
+  }
+}
+
+.testimonialsContainer {
+  background-color: $secondary-color;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  padding: $spacing-xl $spacing-md;
+  min-height: calc(100vh - 300px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  @include breakpoint(lg) {
+    padding: $spacing-2xl $spacing-xl;
+  }
+
+  @media (max-width: 1180px) {
+    padding: $spacing-xl $spacing-lg;
+  }
+
+  @media (max-width: 992px) {
+    padding: $spacing-lg $spacing-md;
+  }
+
+  @media (max-width: 880px) {
+    padding: $spacing-lg $spacing-sm;
+  }
+
+  @media (max-width: 560px) {
+    padding: $spacing-md $spacing-sm;
   }
 }
 
