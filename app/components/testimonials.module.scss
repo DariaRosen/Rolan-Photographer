@@ -105,6 +105,11 @@
   overflow: visible;
   direction: ltr; /* Force LTR for consistent grid behavior */
 
+  // 2 cards visible on medium screens (≤ 1180px, > 767px)
+  @media (max-width: 1180px) and (min-width: 768px) {
+    grid-template-columns: auto minmax(0, 1fr) minmax(0, 1fr) auto;
+  }
+
   // 1 card visible on small screens
   @media (max-width: 767px) {
     grid-template-columns: auto minmax(0, 1fr) auto;

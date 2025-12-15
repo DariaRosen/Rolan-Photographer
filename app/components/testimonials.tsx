@@ -83,9 +83,16 @@ export const Testimonials = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth >= 768) {
+      const width = window.innerWidth
+
+      if (width >= 1180) {
+        // Desktop and large screens: show 3 cards
         setVisibleCount(3)
+      } else if (width >= 768) {
+        // Tablet / medium screens: show 2 cards
+        setVisibleCount(2)
       } else {
+        // Mobile: show 1 card
         setVisibleCount(1)
       }
     }
@@ -103,30 +110,38 @@ export const Testimonials = () => {
     setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length)
   }, [])
 
-  // Map testimonials to fixed positions
-  // For 3 cards: positions 0, 1, 2
-  // For 1 card: position 0 only
+  // Map testimonials to fixed positions according to visibleCount
   const getTestimonialForPosition = (position: number) => {
     if (visibleCount === 1) {
-      // Show only the current testimonial
+      // Single card: always show the current testimonial
       return testimonials[currentIndex]
-    } else {
-      // Show 3 cards: currentIndex - 1, currentIndex, currentIndex + 1
-      const offset = position - 1 // -1, 0, 1
-      let testimonialIndex = currentIndex + offset
-      
-      // Handle wrapping for circular carousel
-      if (testimonialIndex < 0) {
-        testimonialIndex = testimonials.length + testimonialIndex
-      } else if (testimonialIndex >= testimonials.length) {
+    }
+
+    if (visibleCount === 2) {
+      // Two cards: currentIndex and the next one
+      let testimonialIndex = currentIndex + position // position: 0, 1
+
+      if (testimonialIndex >= testimonials.length) {
         testimonialIndex = testimonialIndex - testimonials.length
       }
-      
+
       return testimonials[testimonialIndex]
     }
+
+    // Three cards: currentIndex - 1, currentIndex, currentIndex + 1
+    const offset = position - 1 // -1, 0, 1
+    let testimonialIndex = currentIndex + offset
+
+    if (testimonialIndex < 0) {
+      testimonialIndex = testimonials.length + testimonialIndex
+    } else if (testimonialIndex >= testimonials.length) {
+      testimonialIndex = testimonialIndex - testimonials.length
+    }
+
+    return testimonials[testimonialIndex]
   }
 
-  const positions = visibleCount === 3 ? [0, 1, 2] : [0]
+  const positions = visibleCount === 3 ? [0, 1, 2] : visibleCount === 2 ? [0, 1] : [0]
 
   return (
     <Main>
