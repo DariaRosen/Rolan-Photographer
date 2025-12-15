@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import { Main } from '@/components/Main/Main'
 import styles from './testimonials.module.scss'
 
@@ -77,10 +77,23 @@ const testimonials: Testimonial[] = [
   },
 ]
 
-const VISIBLE = 3 // Show 3 cards at a time
-
 export const Testimonials = () => {
   const [currentIndex, setCurrentIndex] = useState(0)
+  const [visibleCount, setVisibleCount] = useState(3)
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setVisibleCount(3)
+      } else {
+        setVisibleCount(1)
+      }
+    }
+
+    handleResize() // Set initial value
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   const goToNext = useCallback(() => {
     setCurrentIndex((prev) => (prev + 1) % testimonials.length)
@@ -90,27 +103,30 @@ export const Testimonials = () => {
     setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length)
   }, [])
 
-  // Map testimonials to fixed positions (0-2)
-  // Position 0: left (smallest)
-  // Position 1: center (largest)
-  // Position 2: right (smallest)
+  // Map testimonials to fixed positions
+  // For 3 cards: positions 0, 1, 2
+  // For 1 card: position 0 only
   const getTestimonialForPosition = (position: number) => {
-    // Position 1 (center) shows testimonial at currentIndex
-    // Position 0 shows testimonial at currentIndex - 1
-    // Position 2 shows testimonial at currentIndex + 1
-    
-    const offset = position - 1 // -1, 0, 1
-    let testimonialIndex = currentIndex + offset
-    
-    // Handle wrapping for circular carousel
-    if (testimonialIndex < 0) {
-      testimonialIndex = testimonials.length + testimonialIndex
-    } else if (testimonialIndex >= testimonials.length) {
-      testimonialIndex = testimonialIndex - testimonials.length
+    if (visibleCount === 1) {
+      // Show only the current testimonial
+      return testimonials[currentIndex]
+    } else {
+      // Show 3 cards: currentIndex - 1, currentIndex, currentIndex + 1
+      const offset = position - 1 // -1, 0, 1
+      let testimonialIndex = currentIndex + offset
+      
+      // Handle wrapping for circular carousel
+      if (testimonialIndex < 0) {
+        testimonialIndex = testimonials.length + testimonialIndex
+      } else if (testimonialIndex >= testimonials.length) {
+        testimonialIndex = testimonialIndex - testimonials.length
+      }
+      
+      return testimonials[testimonialIndex]
     }
-    
-    return testimonials[testimonialIndex]
   }
+
+  const positions = visibleCount === 3 ? [0, 1, 2] : [0]
 
   return (
     <Main>
@@ -131,17 +147,13 @@ export const Testimonials = () => {
               </svg>
             </button>
 
-            {[0, 1, 2].map((position) => {
+            {positions.map((position) => {
               const testimonial = getTestimonialForPosition(position)
-              const isCenter = position === 1
+              const isCenter = visibleCount === 3 ? position === 1 : true
               
               return (
                 <div key={`${testimonial.id}-${position}-${currentIndex}`} className={styles.cardWrapper}>
-                  <div
-                    className={`${styles.testimonialCard} ${
-                      isCenter ? styles.cardCenter : position === 0 ? styles.cardLeft : styles.cardRight
-                    }`}
-                  >
+                  <div className={styles.testimonialCard}>
                     <div className={styles.imageWrapper}>
                       <img
                         src={testimonial.image}
