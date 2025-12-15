@@ -137,3 +137,34 @@
   }
 }
 
+.designedBy {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-xs;
+  margin-top: $spacing-lg;
+  padding-top: $spacing-lg;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: $fs-sm;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 300;
+
+  span {
+    color: rgba(255, 255, 255, 0.6);
+  }
+}
+
+.heartIcon {
+  width: 18px;
+  height: 18px;
+  color: rgba(255, 255, 255, 0.8);
+  fill: currentColor;
+}
+
+.logo {
+  height: auto;
+  width: auto;
+  max-height: 24px;
+  object-fit: contain;
+}
+
