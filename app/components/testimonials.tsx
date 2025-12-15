@@ -151,14 +151,15 @@ export const Testimonials = () => {
         <div className={styles.testimonialsContainer}>
           <div className={styles.carouselContainer}>
           <div className={styles.cardsContainer}>
+            {/* LEFT button - now goes to NEXT */}
             <button
               className={styles.navButton}
-              onClick={goToPrevious}
+              onClick={goToNext}
               type="button"
-              aria-label="Previous testimonials"
+              aria-label="Next testimonials"
             >
               <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M9 18L15 12L9 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </button>
 
@@ -198,14 +199,15 @@ export const Testimonials = () => {
               )
             })}
 
+            {/* RIGHT button - now goes to PREVIOUS */}
             <button
               className={styles.navButton}
-              onClick={goToNext}
+              onClick={goToPrevious}
               type="button"
-              aria-label="Next testimonials"
+              aria-label="Previous testimonials"
             >
               <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M9 18L15 12L9 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </button>
           </div>
