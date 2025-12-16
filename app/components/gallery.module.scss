@@ -32,22 +32,17 @@
 .galleryGrid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: $spacing-md;
+  gap: $spacing-xs;
   width: 100%;
 
   @include breakpoint(md) {
     grid-template-columns: repeat(2, 1fr);
-    gap: $spacing-md;
+    gap: $spacing-xs;
   }
 
   @include breakpoint(lg) {
     grid-template-columns: repeat(3, 1fr);
-    gap: $spacing-lg;
-  }
-
-  @media (max-width: 1180px) {
-    grid-template-columns: repeat(2, 1fr);
-    gap: $spacing-sm;
+    gap: $spacing-xs;
   }
 
   @media (max-width: 880px) {
@@ -65,43 +60,51 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: $spacing-sm;
   cursor: pointer;
   transition: transform $transition-base;
-
-  @media (max-width: 1180px) {
-    gap: $spacing-sm;
-  }
-
-  @media (max-width: 880px) {
-    gap: $spacing-xs;
-  }
 }
 
 .itemTitle {
   font-family: $font-primary;
-  font-size: $fs-lg;
-  font-weight: 400;
-  color: $text-dark;
+  font-size: $fs-2xl;
+  font-weight: 500;
+  color: #ffffff;
   text-align: center;
   margin: 0;
   letter-spacing: 0.5px;
-  transition: color $transition-base, transform $transition-base;
+  transition: transform $transition-base, opacity $transition-base;
+
+  @include breakpoint(md) {
+    font-size: $fs-3xl;
+  }
 
   @include breakpoint(lg) {
-    font-size: $fs-xl;
+    font-size: $fs-4xl;
   }
+}
 
-  @media (max-width: 1180px) {
-    font-size: $fs-base;
-  }
+.itemTitleOverlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: $spacing-sm $spacing-md;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.75) 0%,
+    rgba(0, 0, 0, 0.45) 40%,
+    transparent 100%
+  );
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 2;
 
   @media (max-width: 880px) {
-    font-size: $fs-sm;
+    padding: $spacing-xs $spacing-sm;
   }
 
   .galleryItem:hover & {
-    color: $primary-color;
     transform: translateY(-2px);
   }
 }
@@ -109,29 +112,12 @@
 .frame {
   position: relative;
   width: 100%;
-  max-width: 520px;
   padding: 0;
   background: transparent;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: none;
   transition: transform $transition-base;
-
-  @media (max-width: 1180px) {
-    max-width: 460px;
-  }
-
-  @media (max-width: 992px) {
-    max-width: 400px;
-  }
-
-  @media (max-width: 880px) {
-    max-width: 340px;
-  }
-
-  @media (max-width: 560px) {
-    max-width: 260px;
-  }
 
   &:hover {
     transform: translateY(-4px);

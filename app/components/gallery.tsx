@@ -175,13 +175,15 @@ export const Gallery = () => {
                 }
               }}
             >
-              <h2 className={styles.itemTitle}>{item.title}</h2>
               <div className={styles.frame}>
                 <img
                   src={item.image}
                   alt={item.title}
                   className={styles.image}
                 />
+                <div className={styles.itemTitleOverlay}>
+                  <h2 className={styles.itemTitle}>{item.title}</h2>
+                </div>
               </div>
             </div>
           ))}
