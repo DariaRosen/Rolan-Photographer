@@ -139,7 +139,7 @@
 
 .designedBy {
   display: flex;
-  align-items: center;
+  align-items: end;
   justify-content: center;
   gap: $spacing-xs;
   margin-top: $spacing-lg;
@@ -147,17 +147,22 @@
   border-top: 1px solid rgba($border-color, 0.5);
   font-size: $fs-sm;
   color: $text-light;
-  font-weight: 300;
+  font-weight: 500;
 
   span {
-    color: $text-light;
+    // Webicon blue gradient: dark top → lighter bottom
+    background: linear-gradient(180deg, #004570, #036592, #0573a2);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
 }
 
 .heartIcon {
-  width: 18px;
-  height: 18px;
-  color: $primary-color;
+  width: 22px;
+  height: 22px;
+  // Mid Webicon blue
+  color: #036592;
   fill: currentColor;
 }
 
