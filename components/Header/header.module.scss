@@ -256,9 +256,9 @@
 
 .logoImage {
   width: 80px;
-  height: 80px;
+  height: 60px;
   min-width: 80px;
-  min-height: 80px;
+  min-height: 60px;
   object-fit: contain;
   display: block;
   transition: width 0.3s ease, height 0.3s ease;
@@ -270,8 +270,8 @@
   }
 
   @include breakpoint(xl) {
-    width: 120px;
-    height: 120px;
+    width: 136px;
+    height: 60px;
   }
 
   // Step 2: Logo 100x100
@@ -285,25 +285,25 @@
   // Step 3: Logo 90x90
   @media (max-width: 1000px) {
     @include breakpoint(md) {
-      width: 90px;
-      height: 90px;
+      width: 104px;
+      height: 104px;
     }
   }
 
   // Step 4: Logo 80x80
   @media (max-width: 900px) {
     @include breakpoint(md) {
-      width: 80px;
-      height: 80px;
+      width: 96px;
+      height: 96px;
     }
   }
 
   // Compact centered logo size
   @media (max-width: 820px) {
-    width: 60px;
-    height: 60px;
-    min-width: 60px;
-    min-height: 60px;
+    width: 72px;
+    height: 72px;
+    min-width: 72px;
+    min-height: 72px;
   }
 }
 
