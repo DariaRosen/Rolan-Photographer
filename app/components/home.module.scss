@@ -8,12 +8,8 @@
 
 .carouselSection {
   margin-bottom: $spacing-2xl;
-  padding: 0 $spacing-md;
-
-  @include breakpoint(lg) {
-    padding: 0 $spacing-lg;
-    margin-bottom: $spacing-2xl;
-  }
+  padding: 0;
+  width: 100%;
 }
 
 .contentSection {

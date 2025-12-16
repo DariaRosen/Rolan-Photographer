@@ -1,9 +1,9 @@
 "use client";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { EffectCoverflow, Autoplay } from "swiper/modules";
+import { Autoplay, Navigation } from "swiper/modules";
 import "swiper/css";
-import "swiper/css/effect-coverflow";
+import "swiper/css/navigation";
 import styles from "./carousel.module.scss";
 
 interface CarouselImage {
@@ -20,19 +20,12 @@ export const Carousel = ({ images }: CarouselProps) => {
     <div className={styles.swiperWrapper}>
       <Swiper
         className={styles.swiper}
-        modules={[EffectCoverflow, Autoplay]}
-        effect="coverflow"
+        modules={[Autoplay, Navigation]}
         grabCursor
-        centeredSlides
         loop
-        slidesPerView="auto"
-        coverflowEffect={{
-          rotate: 0,
-          stretch: 0,
-          depth: 100,
-          modifier: 2.5,
-          slideShadows: false,
-        }}
+        slidesPerView={1}
+        spaceBetween={0}
+        navigation={true}
         autoplay={{
           delay: 3000,
           disableOnInteraction: false,
