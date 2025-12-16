@@ -322,23 +322,36 @@
   }
 }
 
-.collageGrid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-auto-rows: minmax(150px, auto);
-  gap: $spacing-md;
+.collageColumns {
+  position: relative;
+  display: flex;
   width: 100%;
+  // Pixieset-style: tight columns
+  gap: 4px;
+  align-items: flex-start;
+  justify-content: center;
 
   @include breakpoint(md) {
-    grid-template-columns: repeat(5, 1fr);
-    grid-auto-rows: minmax(180px, auto);
-    gap: $spacing-lg;
+    gap: 3px;
   }
 
-  @include breakpoint(lg) {
-    grid-template-columns: repeat(6, 1fr);
-    grid-auto-rows: minmax(200px, auto);
-    gap: $spacing-xl;
+  @media (max-width: 640px) {
+    gap: 2px;
+  }
+}
+
+.collageColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1 1 0;
+
+  @include breakpoint(md) {
+    gap: 3px;
+  }
+
+  @media (max-width: 640px) {
+    gap: 2px;
   }
 }
 
@@ -346,43 +359,16 @@
   position: relative;
   width: 100%;
   overflow: hidden;
-  border-radius: 4px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  border-radius: 2px;
+  // Subtle shadow so tiles feel almost flush, similar to Pixieset
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
   transition: transform $transition-base, box-shadow $transition-base;
   cursor: pointer;
 
   &:hover {
-    transform: translateY(-4px) scale(1.02);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+    transform: translateY(-2px) scale(1.01);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.18);
     z-index: 1;
-  }
-
-  // Normal size (1x1) - default
-  &.collageItemNormal {
-    grid-column: span 1;
-    grid-row: span 1;
-    aspect-ratio: 3 / 4;
-  }
-
-  // Tall size (1x2)
-  &.collageItemTall {
-    grid-column: span 1;
-    grid-row: span 2;
-    aspect-ratio: 3 / 8;
-  }
-
-  // Wide size (2x1)
-  &.collageItemWide {
-    grid-column: span 2;
-    grid-row: span 1;
-    aspect-ratio: 3 / 2;
-  }
-
-  // Large size (2x2)
-  &.collageItemLarge {
-    grid-column: span 2;
-    grid-row: span 2;
-    aspect-ratio: 3 / 4;
   }
 }
 

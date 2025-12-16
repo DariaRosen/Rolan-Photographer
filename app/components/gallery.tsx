@@ -117,6 +117,18 @@ export const Gallery = () => {
 
   const selectedImages = selectedFolder ? getImageFiles(selectedFolder.folder) : []
 
+  // Distribute images into 4 flex columns (masonry-style)
+  const columnsCount = 4
+  const collageColumns: string[][] = Array.from(
+    { length: columnsCount },
+    () => []
+  )
+
+  selectedImages.forEach((imagePath, index) => {
+    const columnIndex = index % columnsCount
+    collageColumns[columnIndex].push(imagePath)
+  })
+
   return (
     <Main>
       <div className={styles.gallery}>
@@ -177,48 +189,27 @@ export const Gallery = () => {
 
               <h2 className={styles.modalTitle}>{selectedFolder.title}</h2>
 
-              <div className={styles.collageGrid}>
-                {selectedImages.map((imagePath, index) => {
-                  // Vary the sizes: some 1x1, some 1x2, some 2x1, some 2x2
-                  const sizePattern = [
-                    'normal', // 1x1
-                    'tall',   // 1x2
-                    'wide',   // 2x1
-                    'large',  // 2x2
-                    'normal',
-                    'tall',
-                    'normal',
-                    'wide',
-                    'normal',
-                    'large',
-                    'normal',
-                    'tall',
-                    'normal',
-                    'wide',
-                    'normal',
-                    'normal',
-                    'tall',
-                    'normal',
-                    'wide',
-                    'normal',
-                    'large',
-                  ]
-                  const size = sizePattern[index % sizePattern.length] || 'normal'
-                  
-                  return (
-                    <div 
-                      key={index} 
-                      className={`${styles.collageItem} ${styles[`collageItem${size.charAt(0).toUpperCase() + size.slice(1)}`]}`}
-                    >
-                      <img
-                        src={imagePath}
-                        alt={`${selectedFolder.title} ${index + 1}`}
-                        className={styles.collageImage}
-                        loading="lazy"
-                      />
-                    </div>
-                  )
-                })}
+              <div className={styles.collageColumns}>
+                {collageColumns.map((columnImages, columnIndex) => (
+                  <div
+                    key={`column-${columnIndex}`}
+                    className={styles.collageColumn}
+                  >
+                    {columnImages.map((imagePath, index) => (
+                      <div
+                        key={imagePath}
+                        className={styles.collageItem}
+                      >
+                        <img
+                          src={imagePath}
+                          alt={`${selectedFolder.title} ${columnIndex + 1}-${index + 1}`}
+                          className={styles.collageImage}
+                          loading="lazy"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                ))}
               </div>
             </div>
           </div>
