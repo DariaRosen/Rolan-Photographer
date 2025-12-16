@@ -2,11 +2,11 @@
 @use '../../styles/mixins' as *;
 
 .footer {
-  background-color: $primary-color;
-  color: $secondary-color;
-  padding: $spacing-2xl 0 $spacing-lg;
+  background-color: #ffffff;
+  color: $text-dark;
+  padding: 0;
   margin-top: auto;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: none;
 }
 
 .container {
@@ -19,7 +19,7 @@
   gap: $spacing-xl;
   margin-bottom: $spacing-xl;
   padding-bottom: $spacing-xl;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba($border-color, 0.5);
 
   @include breakpoint(md) {
     grid-template-columns: 2fr 1fr 1fr;
@@ -32,13 +32,13 @@
     font-size: $fs-2xl;
     font-weight: 400;
     margin-bottom: $spacing-md;
-    color: $secondary-color;
+    color: $text-dark;
     letter-spacing: 1px;
   }
 
   p {
     font-size: $fs-sm;
-    color: rgba(255, 255, 255, 0.6);
+    color: $text-light;
     line-height: 1.8;
     max-width: 400px;
     font-weight: 300;
@@ -50,7 +50,7 @@
     font-size: $fs-sm;
     font-weight: 400;
     margin-bottom: $spacing-md;
-    color: $secondary-color;
+    color: $text-dark;
     text-transform: uppercase;
     letter-spacing: 2px;
   }
@@ -64,12 +64,12 @@
 
 .link {
   font-size: $fs-sm;
-  color: rgba(255, 255, 255, 0.6);
+  color: $text-light;
   transition: color $transition-fast;
   font-weight: 300;
 
   &:hover {
-    color: $secondary-color;
+    color: $primary-color;
   }
 }
 
@@ -83,15 +83,15 @@
   width: 36px;
   height: 36px;
   @include flex-center;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba($border-color, 0.8);
   border-radius: 50%;
-  color: rgba(255, 255, 255, 0.6);
+  color: $text-light;
   transition: all $transition-base;
   font-size: $fs-sm;
 
   &:hover {
-    border-color: rgba(255, 255, 255, 0.5);
-    color: $secondary-color;
+    border-color: $primary-color;
+    color: $primary-color;
     transform: translateY(-2px);
   }
 }
@@ -102,7 +102,7 @@
   gap: $spacing-sm;
   padding-top: $spacing-lg;
   font-size: $fs-xs;
-  color: rgba(255, 255, 255, 0.5);
+  color: $text-muted;
   font-weight: 300;
 
   @include breakpoint(md) {
@@ -128,11 +128,11 @@
   }
 
   a {
-    color: rgba(255, 255, 255, 0.5);
+    color: $text-muted;
     transition: color $transition-fast;
 
     &:hover {
-      color: rgba(255, 255, 255, 0.8);
+      color: $primary-color;
     }
   }
 }
@@ -144,27 +144,27 @@
   gap: $spacing-xs;
   margin-top: $spacing-lg;
   padding-top: $spacing-lg;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba($border-color, 0.5);
   font-size: $fs-sm;
-  color: rgba(255, 255, 255, 0.6);
+  color: $text-light;
   font-weight: 300;
 
   span {
-    color: rgba(255, 255, 255, 0.6);
+    color: $text-light;
   }
 }
 
 .heartIcon {
   width: 18px;
   height: 18px;
-  color: rgba(255, 255, 255, 0.8);
+  color: $primary-color;
   fill: currentColor;
 }
 
 .logo {
   height: auto;
   width: auto;
-  max-height: 24px;
+  max-height: 48px;
   object-fit: contain;
 }
 
