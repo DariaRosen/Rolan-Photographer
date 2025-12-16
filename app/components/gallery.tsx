@@ -80,6 +80,7 @@ const getImageFiles = (folder: string): string[] => {
 
 export const Gallery = () => {
   const [selectedFolder, setSelectedFolder] = useState<GalleryItem | null>(null)
+  const [columnsCount, setColumnsCount] = useState<number>(4)
 
   const handleFrameClick = (item: GalleryItem) => {
     setSelectedFolder(item)
@@ -117,8 +118,33 @@ export const Gallery = () => {
 
   const selectedImages = selectedFolder ? getImageFiles(selectedFolder.folder) : []
 
-  // Distribute images into 4 flex columns (masonry-style)
-  const columnsCount = 4
+  // Update number of columns based on viewport width
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth
+
+      if (width <= 640) {
+        setColumnsCount(2)
+        return
+      }
+
+      if (width <= 1000) {
+        setColumnsCount(3)
+        return
+      }
+
+      setColumnsCount(4)
+    }
+
+    handleResize()
+    window.addEventListener('resize', handleResize)
+
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
+
+  // Distribute images into flex columns (masonry-style)
   const collageColumns: string[][] = Array.from(
     { length: columnsCount },
     () => []
