@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import styles from "./header.module.scss";
@@ -24,6 +24,7 @@ export const Header = ({ navigation = defaultNavigation }: HeaderProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const headerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -32,6 +33,28 @@ export const Header = ({ navigation = defaultNavigation }: HeaderProps) => {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Dynamically set header height CSS variable
+  useEffect(() => {
+    const updateHeaderHeight = () => {
+      if (headerRef.current) {
+        const height = headerRef.current.offsetHeight;
+        document.documentElement.style.setProperty("--header-height", `${height}px`);
+      }
+    };
+
+    // Update on mount and resize
+    updateHeaderHeight();
+    window.addEventListener("resize", updateHeaderHeight);
+    
+    // Also update after a short delay to catch any layout changes
+    const timeoutId = setTimeout(updateHeaderHeight, 100);
+
+    return () => {
+      window.removeEventListener("resize", updateHeaderHeight);
+      clearTimeout(timeoutId);
+    };
   }, []);
 
   const handleMobileMenuToggle = () => {
@@ -43,7 +66,10 @@ export const Header = ({ navigation = defaultNavigation }: HeaderProps) => {
   };
 
   return (
-    <header className={`${styles.header} ${isScrolled ? styles.scrolled : ""}`}>
+    <header 
+      ref={headerRef}
+      className={`${styles.header} ${isScrolled ? styles.scrolled : ""}`}
+    >
       <div className={styles.container}>
         {/* Left - Contacts */}
         <div className={styles.contacts}>

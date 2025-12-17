@@ -2,6 +2,6 @@
 
 .main {
   min-height: calc(100vh - 180px);
-  margin-top: 50px;
+  margin-top: var(--header-height, 140px);
 }
 
