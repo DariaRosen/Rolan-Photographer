@@ -17,14 +17,12 @@ export const Home = () => {
   return (
     <Main>
       <div className={styles.home}>
-        <div className={styles.contentSection}>
-          <p className={styles.description} dir="rtl">
-            «הרגעים הקטנים עם המשפחה היום הם פרקי הנוסטלגיה של העתיד»
-          </p>
-        </div>
         {carouselImages.length > 0 && (
           <div className={styles.carouselSection}>
             <Carousel images={carouselImages} />
+            <div className={styles.heroQuote} dir="rtl">
+              «הרגעים הקטנים עם המשפחה היום הם פרקי הנוסטלגיה של העתיד»
+            </div>
           </div>
         )}
       </div>

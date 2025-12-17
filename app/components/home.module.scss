@@ -2,7 +2,8 @@
 @use '../../styles/mixins' as *;
 
 .home {
-  padding: $spacing-xl $spacing-md;
+  padding: 0;
+  padding-top: var(--header-height,140px);
   min-height: calc(100vh - 300px);
 }
 
@@ -10,6 +11,7 @@
   margin-bottom: $spacing-2xl;
   padding: 0;
   width: 100%;
+  position: relative;
 }
 
 .contentSection {
@@ -35,44 +37,42 @@
 .description {
   font-family: $font-primary;
   font-size: $fs-4xl;
+}
+
+.heroQuote {
+  position: absolute;
+  inset-inline-end: 8%;
+  inset-block-end: 14%;
+  max-width: 40rem;
+  font-family: $font-primary;
   font-weight: 700;
-  color: $text-dark;
-  max-width: 650px;
-  margin: 0 auto;
-  line-height: 1.6;
+  font-size: 2.5rem;
+  line-height: 1.4;
+  color: #ffffff;
+  text-align: right;
   letter-spacing: 0.5px;
-  padding-top: calc(var(--header-height, 140px) + 24px);
+  text-shadow: 0 4px 16px rgba(0, 0, 0, 0.7);
 
-  // Step down as layout tightens and nav shifts (monotonic decreases)
   @media (max-width: 1180px) {
-    font-size: 2.3rem;
-    line-height: 1.5;
-    padding-top: calc(var(--header-height, 140px) + 20px);
-  }
-
-  @media (max-width: 992px) {
-    font-size: 2rem;
-    line-height: 1.45;
-    padding-top: calc(var(--header-height, 120px) + 18px);
+    inset-inline-end: 6%;
+    inset-block-end: 12%;
+    font-size: 2.1rem;
+    max-width: 34rem;
   }
 
   @media (max-width: 880px) {
-    font-size: 1.5rem;
-    line-height: 1.35;
-    padding-top: calc(var(--header-height, 110px) + 16px);
+    inset-inline-end: 5%;
+    inset-block-end: 10%;
+    font-size: 1.7rem;
+    max-width: 28rem;
   }
 
-  @media (max-width: 820px) {
+  @media (max-width: 640px) {
+    inset-inline: 8%;
+    inset-block-end: 8%;
     font-size: 1.4rem;
-    line-height: 1.35;
-    padding-top: calc(var(--header-height, 96px) + 14px);
-  }
-
-  // Reduce description size when header container (viewport) is very narrow
-  @media (max-width: 560px) {
-    font-size: 1.1rem;
-    line-height: 1.35;
-    padding-top: calc(var(--header-height, 88px) + 12px);
+    max-width: 100%;
+    text-align: center;
   }
 }
 
