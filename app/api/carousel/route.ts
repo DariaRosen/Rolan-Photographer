@@ -17,52 +17,26 @@ export async function GET() {
   });
 
   try {
-    console.log('API Route - Attempting to fetch from folder: Photographer/Carousel');
+    console.log('API Route - Using Search API to find images in Photographer/Carousel folder');
     
-    // Try Search API first (might work differently with IP restrictions)
+    // Use Search API with folder expression - this works even if public_id doesn't include folder
     try {
-      console.log('API Route - Trying Search API...');
-      
-      // Fetch all resources with pagination if needed
-      let allResources: any[] = [];
-      let nextCursor: string | undefined = undefined;
-      let pageCount = 0;
-      
-      do {
-        pageCount++;
-        console.log(`API Route - Fetching page ${pageCount}...`);
+      const searchResult = await cloudinary.search
+        .expression('folder:Photographer/Carousel AND resource_type:image')
+        .max_results(500)
+        .execute();
+
+      console.log(`API Route - Search API response:`, {
+        total_count: searchResult.total_count,
+        resourceCount: searchResult.resources?.length || 0,
+      });
+
+      if (searchResult.resources && searchResult.resources.length > 0) {
+        console.log(`API Route - Found ${searchResult.resources.length} images in Photographer/Carousel folder`);
+        console.log('API Route - Sample public_ids:', 
+          searchResult.resources.slice(0, 10).map((r: any) => r.public_id));
         
-        const searchQuery = cloudinary.search
-          .expression('folder:Photographer/Carousel')
-          .max_results(500);
-        
-        if (nextCursor) {
-          searchQuery.next_cursor(nextCursor);
-        }
-        
-        const searchResult = await searchQuery.execute();
-
-        console.log(`API Route - Page ${pageCount} response:`, {
-          hasResources: !!searchResult.resources,
-          resourceCount: searchResult.resources?.length || 0,
-          totalCount: searchResult.total_count,
-          nextCursor: searchResult.next_cursor,
-        });
-
-        if (searchResult.resources && searchResult.resources.length > 0) {
-          allResources = [...allResources, ...searchResult.resources];
-          nextCursor = searchResult.next_cursor;
-        } else {
-          nextCursor = undefined;
-        }
-      } while (nextCursor);
-
-      console.log(`API Route - Total resources fetched across ${pageCount} pages: ${allResources.length}`);
-      console.log('API Route - All resource public_ids:', allResources.map((r: any) => r.public_id));
-
-      if (allResources.length > 0) {
-        // Filter only image resources and map them
-        const images = allResources
+        const images = searchResult.resources
           .filter((resource: any) => resource.resource_type === 'image')
           .map((resource: any) => ({
             src: resource.secure_url,
@@ -70,62 +44,43 @@ export async function GET() {
             publicId: resource.public_id,
           }));
         
-        console.log(`API Route - Filtered to ${images.length} image resources`);
-        console.log('API Route - All image URLs:', images.map((img: any) => img.src));
-        
+        console.log(`API Route - Mapped to ${images.length} image resources`);
         return NextResponse.json({ images, success: true });
+      } else {
+        console.warn('API Route - Search API returned 0 results for folder:Photographer/Carousel');
       }
     } catch (searchError: any) {
       console.error('API Route - Search API failed:', {
         message: searchError?.message,
         http_code: searchError?.http_code,
         error: searchError?.error,
-        errorMessage: searchError?.error?.message,
-        fullError: JSON.stringify(searchError, null, 2),
       });
-    }
+      
+      // Fallback: Try Admin API with prefix
+      try {
+        console.log('API Route - Fallback: Trying Admin API with prefix');
+        const result = await cloudinary.api.resources({
+          type: 'upload',
+          resource_type: 'image',
+          prefix: 'Photographer/Carousel',
+          max_results: 500,
+        });
 
-    // Try Admin API as fallback
-    try {
-      console.log('API Route - Trying Admin API...');
-      const result = await cloudinary.api.resources({
-        type: 'upload',
-        prefix: 'Photographer/Carousel',
-        max_results: 500,
-      });
-
-      console.log('API Route - Admin API response:', {
-        hasResources: !!result.resources,
-        resourceCount: result.resources?.length || 0,
-      });
-
-      if (result.resources && result.resources.length > 0) {
-        console.log(`API Route - Successfully fetched ${result.resources.length} images via Admin API`);
-        console.log('API Route - All resource public_ids:', result.resources.map((r: any) => r.public_id));
-        
-        // Filter only image resources and map them
-        const images = result.resources
-          .filter((resource: any) => resource.resource_type === 'image' || !resource.resource_type)
-          .map((resource: any) => ({
+        if (result.resources && result.resources.length > 0) {
+          console.log(`API Route - Found ${result.resources.length} images via Admin API`);
+          const images = result.resources.map((resource: any) => ({
             src: resource.secure_url,
             alt: resource.public_id.split('/').pop() || 'Carousel Image',
             publicId: resource.public_id,
           }));
-        
-        console.log(`API Route - Filtered to ${images.length} image resources`);
-        console.log('API Route - All image URLs:', images.map((img: any) => img.src));
-        
-        return NextResponse.json({ images, success: true });
+          return NextResponse.json({ images, success: true });
+        }
+      } catch (adminError: any) {
+        console.error('API Route - Admin API fallback also failed:', adminError?.message);
       }
-    } catch (adminError: any) {
-      console.error('API Route - Admin API failed:', {
-        message: adminError?.message,
-        http_code: adminError?.http_code,
-        error: adminError?.error,
-        errorMessage: adminError?.error?.message,
-        fullError: JSON.stringify(adminError, null, 2),
-      });
     }
+    
+    console.warn('API Route - No resources found in any Carousel folder variation');
 
     console.warn('API Route - No images found');
     return NextResponse.json({ images: [], success: false, error: 'No images found' });
