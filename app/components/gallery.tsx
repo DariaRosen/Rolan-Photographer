@@ -27,7 +27,7 @@ const galleryItems: GalleryItem[] = [
   {
     id: '2',
     title: 'גיל שנה',
-    image: '/gallery/photo2.PNG',
+    image: 'https://res.cloudinary.com/dool6mmp1/image/upload/v1766077487/00002316_a6zekh.jpg',
     folder: 'OneYear',
   },
   {
@@ -66,7 +66,7 @@ interface PaginationResponse {
 const fetchGalleryImages = async (
   folder: string, 
   page: number = 1, 
-  limit: number = 12
+  limit: number = 8
 ): Promise<PaginationResponse> => {
   try {
     console.log(`Fetching images for folder: ${folder}, page: ${page}`)
@@ -129,7 +129,7 @@ export const Gallery = () => {
       setSelectedImages([])
       setHasMore(false)
       
-      fetchGalleryImages(selectedFolder.folder, 1, 12)
+      fetchGalleryImages(selectedFolder.folder, 1, 8)
         .then((response) => {
           setSelectedImages(response.images)
           setHasMore(response.hasMore)
@@ -158,7 +158,7 @@ export const Gallery = () => {
           const nextPage = currentPage + 1
           setIsLoadingMore(true)
           
-          fetchGalleryImages(selectedFolder!.folder, nextPage, 12)
+          fetchGalleryImages(selectedFolder!.folder, nextPage, 8)
             .then((response) => {
               setSelectedImages((prev) => [...prev, ...response.images])
               setHasMore(response.hasMore)
