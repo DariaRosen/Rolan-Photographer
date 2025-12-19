@@ -311,6 +311,23 @@
   }
 }
 
+.loadingState,
+.emptyState {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-2xl;
+  min-height: 200px;
+
+  p {
+    font-family: $font-primary;
+    font-size: $fs-lg;
+    color: $text-dark;
+    text-align: center;
+    margin: 0;
+  }
+}
+
 @keyframes slideUp {
   from {
     opacity: 0;

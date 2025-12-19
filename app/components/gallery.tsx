@@ -11,6 +11,12 @@ interface GalleryItem {
   folder: string
 }
 
+interface CloudinaryImage {
+  src: string
+  alt: string
+  publicId: string
+}
+
 const galleryItems: GalleryItem[] = [
   {
     id: '1',
@@ -50,37 +56,37 @@ const galleryItems: GalleryItem[] = [
   },
 ]
 
-// Image file names in each folder
-const getImageFiles = (folder: string): string[] => {
-  const images = [
-    '1.PNG',
-    '2.PNG',
-    '3.PNG',
-    '4.PNG',
-    '5.PNG',
-    'Capture.PNG',
-    'dffggg.PNG',
-    'dggg.PNG',
-    'efrg.PNG',
-    'fgds.PNG',
-    'frgth.PNG',
-    'hyhy.PNG',
-    'photo1.PNG',
-    'photo2.PNG',
-    'photo3.PNG',
-    'photo4.PNG',
-    'photo5.PNG',
-    'photo6.PNG',
-    'rgtt.PNG',
-    'tht.PNG',
-    'yhy.PNG',
-  ]
-  return images.map((filename) => `/gallery/${folder}/${filename}`)
+// Fetch images from Cloudinary API
+const fetchGalleryImages = async (folder: string): Promise<CloudinaryImage[]> => {
+  try {
+    console.log(`Fetching images for folder: ${folder}`)
+    const response = await fetch(`/api/gallery/${folder}`)
+    const data = await response.json()
+    
+    console.log(`API response for ${folder}:`, {
+      success: data.success,
+      imageCount: data.images?.length || 0,
+      error: data.error,
+    })
+    
+    if (data.success && data.images && data.images.length > 0) {
+      return data.images
+    }
+    
+    // Fallback to empty array if no images found
+    console.warn(`No images found for folder ${folder}`)
+    return []
+  } catch (error) {
+    console.error(`Error fetching images for folder ${folder}:`, error)
+    return []
+  }
 }
 
 export const Gallery = () => {
   const [selectedFolder, setSelectedFolder] = useState<GalleryItem | null>(null)
   const [columnsCount, setColumnsCount] = useState<number>(4)
+  const [selectedImages, setSelectedImages] = useState<CloudinaryImage[]>([])
+  const [isLoadingImages, setIsLoadingImages] = useState<boolean>(false)
 
   const handleFrameClick = (item: GalleryItem) => {
     setSelectedFolder(item)
@@ -95,6 +101,25 @@ export const Gallery = () => {
       handleCloseModal()
     }
   }
+
+  // Fetch images from Cloudinary when a folder is selected
+  useEffect(() => {
+    if (selectedFolder) {
+      setIsLoadingImages(true)
+      fetchGalleryImages(selectedFolder.folder)
+        .then((images) => {
+          setSelectedImages(images)
+          setIsLoadingImages(false)
+        })
+        .catch((error) => {
+          console.error('Error loading gallery images:', error)
+          setSelectedImages([])
+          setIsLoadingImages(false)
+        })
+    } else {
+      setSelectedImages([])
+    }
+  }, [selectedFolder])
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -115,8 +140,6 @@ export const Gallery = () => {
       window.removeEventListener('keydown', handleKeyDown)
     }
   }, [selectedFolder])
-
-  const selectedImages = selectedFolder ? getImageFiles(selectedFolder.folder) : []
 
   // Update number of columns based on viewport width
   useEffect(() => {
@@ -145,14 +168,14 @@ export const Gallery = () => {
   }, [])
 
   // Distribute images into flex columns (masonry-style)
-  const collageColumns: string[][] = Array.from(
+  const collageColumns: CloudinaryImage[][] = Array.from(
     { length: columnsCount },
     () => []
   )
 
-  selectedImages.forEach((imagePath, index) => {
+  selectedImages.forEach((image, index) => {
     const columnIndex = index % columnsCount
-    collageColumns[columnIndex].push(imagePath)
+    collageColumns[columnIndex].push(image)
   })
 
   return (
@@ -217,28 +240,38 @@ export const Gallery = () => {
 
               <h2 className={styles.modalTitle}>{selectedFolder.title}</h2>
 
-              <div className={styles.collageColumns}>
-                {collageColumns.map((columnImages, columnIndex) => (
-                  <div
-                    key={`column-${columnIndex}`}
-                    className={styles.collageColumn}
-                  >
-                    {columnImages.map((imagePath, index) => (
-                      <div
-                        key={imagePath}
-                        className={styles.collageItem}
-                      >
-                        <img
-                          src={imagePath}
-                          alt={`${selectedFolder.title} ${columnIndex + 1}-${index + 1}`}
-                          className={styles.collageImage}
-                          loading="lazy"
-                        />
-                      </div>
-                    ))}
-                  </div>
-                ))}
-              </div>
+              {isLoadingImages ? (
+                <div className={styles.loadingState}>
+                  <p>טוען תמונות...</p>
+                </div>
+              ) : selectedImages.length === 0 ? (
+                <div className={styles.emptyState}>
+                  <p>לא נמצאו תמונות</p>
+                </div>
+              ) : (
+                <div className={styles.collageColumns}>
+                  {collageColumns.map((columnImages, columnIndex) => (
+                    <div
+                      key={`column-${columnIndex}`}
+                      className={styles.collageColumn}
+                    >
+                      {columnImages.map((image, index) => (
+                        <div
+                          key={image.publicId || image.src}
+                          className={styles.collageItem}
+                        >
+                          <img
+                            src={image.src}
+                            alt={image.alt || `${selectedFolder.title} ${columnIndex + 1}-${index + 1}`}
+                            className={styles.collageImage}
+                            loading="lazy"
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         )}
