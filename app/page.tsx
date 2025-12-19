@@ -6,6 +6,8 @@ import { Pricing } from "./components/pricing";
 import { Testimonials } from "./components/testimonials";
 import { Contact } from "./components/contact";
 
+export const dynamic = 'force-dynamic';
+
 const sections = [
   { id: "home", Component: Home },
   { id: "about", Component: About },

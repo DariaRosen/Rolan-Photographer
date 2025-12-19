@@ -1,6 +1,7 @@
 import styles from "./home.module.scss";
 import { Main } from "@/components/Main/Main";
 import { Carousel } from "@/components/Carousel/carousel";
+import { cloudinary } from "@/lib/cloudinary";
 
 interface CarouselImage {
   src: string;
@@ -10,31 +11,41 @@ interface CarouselImage {
 
 async function getCarouselImages(): Promise<CarouselImage[]> {
   try {
-    // For Server Components, construct the full URL
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
-    const url = `${baseUrl}/api/carousel`;
-    
-    const response = await fetch(url, {
-      cache: 'no-store', // Always fetch fresh data
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    // Call Cloudinary directly instead of using fetch to avoid build-time issues
+    const searchResult = await cloudinary.search
+      .expression('folder:Photographer/Carousel AND resource_type:image')
+      .max_results(500)
+      .execute();
 
-    if (!response.ok) {
-      console.error('Failed to fetch carousel images:', response.statusText);
-      return [];
+    if (searchResult.resources && searchResult.resources.length > 0) {
+      return searchResult.resources
+        .filter((resource: any) => resource.resource_type === 'image')
+        .map((resource: any) => ({
+          src: resource.secure_url,
+          alt: resource.public_id.split('/').pop() || 'Carousel Image',
+          publicId: resource.public_id,
+        }));
     }
 
-    const data = await response.json();
-    
-    if (data.success && data.images && Array.isArray(data.images)) {
-      return data.images;
+    // Fallback: Try Admin API with prefix
+    const result = await cloudinary.api.resources({
+      type: 'upload',
+      resource_type: 'image',
+      prefix: 'Photographer/Carousel',
+      max_results: 500,
+    });
+
+    if (result.resources && result.resources.length > 0) {
+      return result.resources.map((resource: any) => ({
+        src: resource.secure_url,
+        alt: resource.public_id.split('/').pop() || 'Carousel Image',
+        publicId: resource.public_id,
+      }));
     }
 
     return [];
   } catch (error) {
-    console.error('Error fetching carousel images:', error);
+    console.error('Error fetching carousel images from Cloudinary:', error);
     return [];
   }
 }
