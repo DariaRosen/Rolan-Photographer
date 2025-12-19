@@ -14,8 +14,8 @@
 
 .swiperSlide {
   width: 100%;
-  height: 70vh;
-  min-height: 500px;
+  aspect-ratio: 3 / 2;
+  min-height: 600px;
   border-radius: 0;
   border: none;
   box-shadow: none;
@@ -25,17 +25,14 @@
   justify-content: center;
 
   @include breakpoint(lg) {
-    height: 80vh;
-    min-height: 600px;
+    min-height: 700px;
   }
 
   @media (max-width: 880px) {
-    height: 65vh;
-    min-height: 450px;
+    min-height: 500px;
   }
 
   @media (max-width: 560px) {
-    height: 60vh;
     min-height: 400px;
   }
 
@@ -43,5 +40,6 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center;
   }
 }
