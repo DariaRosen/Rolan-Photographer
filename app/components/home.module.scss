@@ -40,35 +40,38 @@
 
 .heroQuote {
   position: absolute;
-  inset-inline-end: 8%;
-  inset-block-end: 14%;
+  right: 3%;
+  top: 3%;
   max-width: 40rem;
   font-family: $font-primary;
   font-weight: 700;
-  font-size: 2.5rem;
+  font-size: 2.3em;
   line-height: 1.4;
   color: #ffffff;
   text-align: right;
   letter-spacing: 0.5px;
   text-shadow: 0 4px 16px rgba(0, 0, 0, 0.7);
+  z-index: 10;
+  pointer-events: none;
 
   @media (max-width: 1180px) {
-    inset-inline-end: 6%;
-    inset-block-end: 12%;
+    right: 3%;
+    top: 6%;
     font-size: 2.1rem;
     max-width: 34rem;
   }
 
   @media (max-width: 880px) {
-    inset-inline-end: 5%;
-    inset-block-end: 10%;
+    right: 3%;
+    top: 5%;
     font-size: 1.7rem;
     max-width: 28rem;
   }
 
   @media (max-width: 640px) {
-    inset-inline: 8%;
-    inset-block-end: 8%;
+    right: 3%;
+    left: 3%;
+    top: 8%;
     font-size: 1.4rem;
     max-width: 100%;
     text-align: center;
