@@ -56,29 +56,44 @@ const galleryItems: GalleryItem[] = [
   },
 ]
 
-// Fetch images from Cloudinary API
-const fetchGalleryImages = async (folder: string): Promise<CloudinaryImage[]> => {
+interface PaginationResponse {
+  images: CloudinaryImage[]
+  hasMore: boolean
+  total: number
+}
+
+// Fetch images from Cloudinary API with pagination
+const fetchGalleryImages = async (
+  folder: string, 
+  page: number = 1, 
+  limit: number = 12
+): Promise<PaginationResponse> => {
   try {
-    console.log(`Fetching images for folder: ${folder}`)
-    const response = await fetch(`/api/gallery/${folder}`)
+    console.log(`Fetching images for folder: ${folder}, page: ${page}`)
+    const response = await fetch(`/api/gallery/${folder}?page=${page}&limit=${limit}`)
     const data = await response.json()
     
     console.log(`API response for ${folder}:`, {
       success: data.success,
       imageCount: data.images?.length || 0,
+      hasMore: data.pagination?.hasMore || false,
       error: data.error,
     })
     
-    if (data.success && data.images && data.images.length > 0) {
-      return data.images
+    if (data.success && data.images) {
+      return {
+        images: data.images,
+        hasMore: data.pagination?.hasMore || false,
+        total: data.pagination?.total || data.images.length,
+      }
     }
     
     // Fallback to empty array if no images found
     console.warn(`No images found for folder ${folder}`)
-    return []
+    return { images: [], hasMore: false, total: 0 }
   } catch (error) {
     console.error(`Error fetching images for folder ${folder}:`, error)
-    return []
+    return { images: [], hasMore: false, total: 0 }
   }
 }
 
@@ -87,6 +102,10 @@ export const Gallery = () => {
   const [columnsCount, setColumnsCount] = useState<number>(4)
   const [selectedImages, setSelectedImages] = useState<CloudinaryImage[]>([])
   const [isLoadingImages, setIsLoadingImages] = useState<boolean>(false)
+  const [isLoadingMore, setIsLoadingMore] = useState<boolean>(false)
+  const [hasMore, setHasMore] = useState<boolean>(false)
+  const [currentPage, setCurrentPage] = useState<number>(1)
+  const [loadMoreRef, setLoadMoreRef] = useState<HTMLDivElement | null>(null)
 
   const handleFrameClick = (item: GalleryItem) => {
     setSelectedFolder(item)
@@ -102,24 +121,65 @@ export const Gallery = () => {
     }
   }
 
-  // Fetch images from Cloudinary when a folder is selected
+  // Reset and load initial images when a folder is selected
   useEffect(() => {
     if (selectedFolder) {
       setIsLoadingImages(true)
-      fetchGalleryImages(selectedFolder.folder)
-        .then((images) => {
-          setSelectedImages(images)
+      setCurrentPage(1)
+      setSelectedImages([])
+      setHasMore(false)
+      
+      fetchGalleryImages(selectedFolder.folder, 1, 12)
+        .then((response) => {
+          setSelectedImages(response.images)
+          setHasMore(response.hasMore)
           setIsLoadingImages(false)
         })
         .catch((error) => {
           console.error('Error loading gallery images:', error)
           setSelectedImages([])
+          setHasMore(false)
           setIsLoadingImages(false)
         })
     } else {
       setSelectedImages([])
+      setHasMore(false)
+      setCurrentPage(1)
     }
   }, [selectedFolder])
+
+  // Load more images when scrolling near the bottom
+  useEffect(() => {
+    if (!loadMoreRef || !hasMore || isLoadingMore || isLoadingImages) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && hasMore && !isLoadingMore) {
+          const nextPage = currentPage + 1
+          setIsLoadingMore(true)
+          
+          fetchGalleryImages(selectedFolder!.folder, nextPage, 12)
+            .then((response) => {
+              setSelectedImages((prev) => [...prev, ...response.images])
+              setHasMore(response.hasMore)
+              setCurrentPage(nextPage)
+              setIsLoadingMore(false)
+            })
+            .catch((error) => {
+              console.error('Error loading more images:', error)
+              setIsLoadingMore(false)
+            })
+        }
+      },
+      { threshold: 0.1 }
+    )
+
+    observer.observe(loadMoreRef)
+
+    return () => {
+      observer.disconnect()
+    }
+  }, [loadMoreRef, hasMore, isLoadingMore, isLoadingImages, currentPage, selectedFolder])
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -249,28 +309,44 @@ export const Gallery = () => {
                   <p>לא נמצאו תמונות</p>
                 </div>
               ) : (
-                <div className={styles.collageColumns}>
-                  {collageColumns.map((columnImages, columnIndex) => (
-                    <div
-                      key={`column-${columnIndex}`}
-                      className={styles.collageColumn}
+                <>
+                  <div className={styles.collageColumns}>
+                    {collageColumns.map((columnImages, columnIndex) => (
+                      <div
+                        key={`column-${columnIndex}`}
+                        className={styles.collageColumn}
+                      >
+                        {columnImages.map((image, index) => (
+                          <div
+                            key={image.publicId || image.src}
+                            className={styles.collageItem}
+                          >
+                            <img
+                              src={image.src}
+                              alt={image.alt || `${selectedFolder.title} ${columnIndex + 1}-${index + 1}`}
+                              className={styles.collageImage}
+                              loading="lazy"
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    ))}
+                  </div>
+                  
+                  {/* Infinite scroll trigger */}
+                  {hasMore && (
+                    <div 
+                      ref={setLoadMoreRef}
+                      className={styles.loadMoreTrigger}
                     >
-                      {columnImages.map((image, index) => (
-                        <div
-                          key={image.publicId || image.src}
-                          className={styles.collageItem}
-                        >
-                          <img
-                            src={image.src}
-                            alt={image.alt || `${selectedFolder.title} ${columnIndex + 1}-${index + 1}`}
-                            className={styles.collageImage}
-                            loading="lazy"
-                          />
+                      {isLoadingMore && (
+                        <div className={styles.loadingMore}>
+                          <p>טוען תמונות נוספות...</p>
                         </div>
-                      ))}
+                      )}
                     </div>
-                  ))}
-                </div>
+                  )}
+                </>
               )}
             </div>
           </div>

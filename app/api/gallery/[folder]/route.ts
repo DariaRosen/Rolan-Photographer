@@ -36,7 +36,12 @@ export async function GET(
   { params }: { params: Promise<{ folder: string }> }
 ) {
   const { folder } = await params;
-  console.log(`=== API Route: /api/gallery/${folder} ===`);
+  const { searchParams } = new URL(request.url);
+  const page = parseInt(searchParams.get('page') || '1', 10);
+  const limit = parseInt(searchParams.get('limit') || '12', 10);
+  const offset = (page - 1) * limit;
+  
+  console.log(`=== API Route: /api/gallery/${folder} === (page: ${page}, limit: ${limit}, offset: ${offset})`);
   
   const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
   const apiKey = process.env.CLOUDINARY_API_KEY;
@@ -88,7 +93,7 @@ export async function GET(
         if (searchResult.resources && searchResult.resources.length > 0) {
           console.log(`API Route - Found ${searchResult.resources.length} images with tag ${tag}`);
           
-          const images = searchResult.resources
+          const allImages = searchResult.resources
             .filter((resource: any) => resource.resource_type === 'image')
             .map((resource: any) => ({
               src: resource.secure_url,
@@ -96,8 +101,21 @@ export async function GET(
               publicId: resource.public_id,
             }));
           
-          console.log(`API Route - Mapped to ${images.length} image resources`);
-          return NextResponse.json({ images, success: true });
+          // Apply pagination
+          const paginatedImages = allImages.slice(offset, offset + limit);
+          const hasMore = offset + limit < allImages.length;
+          
+          console.log(`API Route - Returning ${paginatedImages.length} images (page ${page}, hasMore: ${hasMore})`);
+          return NextResponse.json({ 
+            images: paginatedImages, 
+            success: true,
+            pagination: {
+              page,
+              limit,
+              total: allImages.length,
+              hasMore,
+            }
+          });
         }
       } catch (searchError: any) {
         console.log(`API Route - Search API failed for tag ${tag}:`, searchError?.message);
@@ -122,7 +140,7 @@ export async function GET(
         if (searchResult.resources && searchResult.resources.length > 0) {
           console.log(`API Route - Found ${searchResult.resources.length} images in ${folderPath} folder`);
           
-          const images = searchResult.resources
+          const allImages = searchResult.resources
             .filter((resource: any) => resource.resource_type === 'image')
             .map((resource: any) => ({
               src: resource.secure_url,
@@ -130,8 +148,21 @@ export async function GET(
               publicId: resource.public_id,
             }));
           
-          console.log(`API Route - Mapped to ${images.length} image resources`);
-          return NextResponse.json({ images, success: true });
+          // Apply pagination
+          const paginatedImages = allImages.slice(offset, offset + limit);
+          const hasMore = offset + limit < allImages.length;
+          
+          console.log(`API Route - Returning ${paginatedImages.length} images (page ${page}, hasMore: ${hasMore})`);
+          return NextResponse.json({ 
+            images: paginatedImages, 
+            success: true,
+            pagination: {
+              page,
+              limit,
+              total: allImages.length,
+              hasMore,
+            }
+          });
         }
       } catch (searchError: any) {
         console.log(`API Route - Search API failed for ${folderPath}:`, searchError?.message);
@@ -152,12 +183,27 @@ export async function GET(
 
         if (result.resources && result.resources.length > 0) {
           console.log(`API Route - Found ${result.resources.length} images via Admin API in ${folderPath}`);
-          const images = result.resources.map((resource: any) => ({
+          const allImages = result.resources.map((resource: any) => ({
             src: resource.secure_url,
             alt: resource.public_id.split('/').pop() || 'Gallery Image',
             publicId: resource.public_id,
           }));
-          return NextResponse.json({ images, success: true });
+          
+          // Apply pagination
+          const paginatedImages = allImages.slice(offset, offset + limit);
+          const hasMore = offset + limit < allImages.length;
+          
+          console.log(`API Route - Returning ${paginatedImages.length} images (page ${page}, hasMore: ${hasMore})`);
+          return NextResponse.json({ 
+            images: paginatedImages, 
+            success: true,
+            pagination: {
+              page,
+              limit,
+              total: allImages.length,
+              hasMore,
+            }
+          });
         }
       } catch (adminError: any) {
         console.log(`API Route - Admin API failed for ${folderPath}:`, adminError?.message);
@@ -219,12 +265,27 @@ export async function GET(
 
         if (matchingImages.length > 0) {
           console.log(`API Route - Found ${matchingImages.length} images matching folder variations`);
-          const images = matchingImages.map((resource: any) => ({
+          const allImages = matchingImages.map((resource: any) => ({
             src: resource.secure_url,
             alt: resource.public_id.split('/').pop() || 'Gallery Image',
             publicId: resource.public_id,
           }));
-          return NextResponse.json({ images, success: true });
+          
+          // Apply pagination
+          const paginatedImages = allImages.slice(offset, offset + limit);
+          const hasMore = offset + limit < allImages.length;
+          
+          console.log(`API Route - Returning ${paginatedImages.length} images (page ${page}, hasMore: ${hasMore})`);
+          return NextResponse.json({ 
+            images: paginatedImages, 
+            success: true,
+            pagination: {
+              page,
+              limit,
+              total: allImages.length,
+              hasMore,
+            }
+          });
         }
       }
     } catch (fallbackError: any) {
