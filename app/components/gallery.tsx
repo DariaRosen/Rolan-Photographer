@@ -80,7 +80,7 @@ const fetchGalleryImages = async (
       error: data.error,
     })
     
-    if (data.success && data.images) {
+    if (data.success && data.images && data.images.length > 0) {
       return {
         images: data.images,
         hasMore: data.pagination?.hasMore || false,
@@ -88,8 +88,13 @@ const fetchGalleryImages = async (
       }
     }
     
-    // Fallback to empty array if no images found
-    console.warn(`No images found for folder ${folder}`)
+    // Log the error if present
+    if (data.error) {
+      console.error(`API error for folder ${folder}:`, data.error)
+    } else {
+      console.warn(`No images found for folder ${folder}`)
+    }
+    
     return { images: [], hasMore: false, total: 0 }
   } catch (error) {
     console.error(`Error fetching images for folder ${folder}:`, error)

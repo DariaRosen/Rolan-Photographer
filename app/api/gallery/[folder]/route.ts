@@ -53,6 +53,19 @@ export async function GET(
     apiSecret: apiSecret ? '✓ Set' : '✗ Missing',
   });
 
+  // Check if Cloudinary credentials are missing
+  if (!cloudName || !apiKey || !apiSecret) {
+    console.error('API Route - Missing Cloudinary credentials');
+    return NextResponse.json(
+      { 
+        images: [], 
+        success: false, 
+        error: 'Cloudinary credentials not configured. Please set environment variables in Vercel.' 
+      },
+      { status: 500 }
+    );
+  }
+
   try {
     // Get Cloudinary folder path and tags from mapping
     const folderConfig = folderMap[folder] || { 

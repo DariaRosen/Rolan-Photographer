@@ -11,6 +11,16 @@ interface CarouselImage {
 
 async function getCarouselImages(): Promise<CarouselImage[]> {
   try {
+    // Check if Cloudinary credentials are configured
+    const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
+    const apiKey = process.env.CLOUDINARY_API_KEY;
+    const apiSecret = process.env.CLOUDINARY_API_SECRET;
+    
+    if (!cloudName || !apiKey || !apiSecret) {
+      console.warn('Cloudinary credentials not configured, using fallback images');
+      return [];
+    }
+
     // Call Cloudinary directly instead of using fetch to avoid build-time issues
     const searchResult = await cloudinary.search
       .expression('folder:Photographer/Carousel AND resource_type:image')
