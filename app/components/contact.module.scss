@@ -2,13 +2,14 @@
 @use '../../styles/mixins' as *;
 
 .contact {
-  padding: $spacing-2xl $spacing-md;
+  padding: $spacing-2xl $spacing-md $spacing-xs $spacing-md;
   max-width: 1400px;
   margin: 0 auto;
+  margin-bottom: unset;
   direction: rtl; // Right-to-left for Hebrew
 
   @include breakpoint(lg) {
-    padding: $spacing-2xl $spacing-lg;
+    padding: $spacing-2xl $spacing-lg $spacing-xs $spacing-lg;
   }
 }
 
