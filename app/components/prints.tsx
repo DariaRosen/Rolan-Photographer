@@ -37,6 +37,13 @@ export const Prints = () => {
       <div className={styles.prints}>
         <h1 className={styles.title}>הדפסות</h1>
 
+        <div className={styles.description} dir="rtl">
+          <p>הניתם? צילמתם? השקעתם?</p>
+          <p>יש לכם סט תמונות מדהימות מלאות בקסם חוויה ואוירה ?</p>
+          <p>תמונות כאלה לא משאירים באלבום בארון…</p>
+          <p>מדפיסים אותן בהגדלה!</p>
+        </div>
+
         <div className={styles.printsContainer}>
           <div className={styles.printsGrid}>
             {printOptions.map((option) => (
