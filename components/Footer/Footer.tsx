@@ -18,10 +18,10 @@ export const Footer = () => {
           </svg>
           <span>by</span>
           <Link
-            href="https://portfolio-weld-chi-99.vercel.app/"
+            href="https://webicon.co.il"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Visit Webicon portfolio website"
+            aria-label="Visit Webicon website"
           >
             <Image
               src="/Webicon_logo.PNG"
