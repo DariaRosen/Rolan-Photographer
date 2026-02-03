@@ -418,11 +418,11 @@ a.actionIcon {
   }
 }
 
-// Share pop-up
+// Share pop-up (matches site UI)
 .shareOverlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(61, 42, 28, 0.4);
   z-index: 1100;
   display: flex;
   align-items: center;
@@ -432,27 +432,58 @@ a.actionIcon {
 }
 
 .sharePopup {
-  background: #fff;
+  position: relative;
+  background: $secondary-color;
+  border: 1px solid $border-color;
   border-radius: 12px;
   padding: $spacing-xl;
-  max-width: 420px;
+  max-width: 440px;
   width: 100%;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 32px rgba(61, 42, 28, 0.12);
   direction: rtl;
+}
+
+.shareCloseButton {
+  @include button-reset;
+  position: absolute;
+  top: $spacing-md;
+  left: $spacing-md;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(61, 42, 28, 0.08);
+  color: $text-dark;
+  cursor: pointer;
+  transition: all $transition-base;
+  z-index: 2;
+
+  svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  &:hover {
+    background: rgba(61, 42, 28, 0.12);
+    transform: scale(1.05);
+  }
 }
 
 .sharePopupTitle {
   font-family: $font-primary;
   font-size: $fs-2xl;
-  font-weight: 700;
+  font-weight: 600;
   color: $text-dark;
   margin: 0 0 $spacing-lg 0;
+  padding-inline-end: 48px;
 }
 
 .shareUrlRow {
   display: flex;
   gap: $spacing-sm;
-  margin-bottom: $spacing-xl;
+  margin-bottom: $spacing-lg;
 }
 
 .shareUrlInput {
@@ -462,39 +493,40 @@ a.actionIcon {
   font-family: $font-primary;
   font-size: $fs-base;
   color: $text-dark;
-  background: #f0f0f0;
-  border: 1px solid #e0e0e0;
+  background: $bg-off-white;
+  border: 1px solid $border-color;
   border-radius: 8px;
   outline: none;
 
   &:focus {
-    border-color: #ccc;
+    border-color: $accent-color;
   }
 }
 
 .shareCopyButton {
   flex-shrink: 0;
-  padding: 10px 20px;
+  padding: 10px 18px;
   font-family: $font-primary;
   font-size: $fs-base;
   font-weight: 500;
   color: #fff;
-  background: #4a4a4a;
+  background: $primary-color;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  transition: background 0.2s ease;
+  transition: background $transition-base, transform $transition-fast;
 
   &:hover {
-    background: #333;
+    background: darken($primary-color, 6%);
   }
 }
 
 .shareIconsRow {
   display: flex;
-  flex-wrap: wrap;
-  gap: $spacing-lg;
+  flex-wrap: nowrap;
+  gap: $spacing-md;
   justify-content: center;
+  align-items: flex-end;
 }
 
 .shareIconLink {
@@ -504,18 +536,19 @@ a.actionIcon {
   gap: $spacing-xs;
   text-decoration: none;
   color: $text-dark;
-  transition: opacity 0.2s ease;
+  transition: opacity $transition-base;
+  flex-shrink: 0;
 
   &:hover {
-    opacity: 0.85;
+    opacity: 0.8;
   }
 }
 
 .shareIconCircle {
-  width: 48px;
-  height: 48px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  background: #4a4a4a;
+  background: $primary-color;
   color: #fff;
   display: flex;
   align-items: center;
@@ -524,8 +557,8 @@ a.actionIcon {
 
 .shareIconLabel {
   font-family: $font-primary;
-  font-size: $fs-sm;
-  color: #555;
+  font-size: $fs-xs;
+  color: $text-light;
 }
 
 @keyframes slideUp {

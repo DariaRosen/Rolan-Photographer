@@ -418,7 +418,7 @@ export const Gallery = () => {
                               <button
                                 type="button"
                                 className={styles.actionIcon}
-                                aria-label="שתף"
+                                aria-label="שתפו עם יקירכם"
                                 onClick={(e) => { e.stopPropagation(); openSharePopup(image.src) }}
                               >
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -462,13 +462,23 @@ export const Gallery = () => {
             onClick={closeSharePopup}
             role="dialog"
             aria-modal="true"
-            aria-label="שתף"
+            aria-label="שתפו עם יקירכם"
           >
             <div
               className={styles.sharePopup}
               onClick={(e) => e.stopPropagation()}
             >
-              <h3 className={styles.sharePopupTitle}>שתף</h3>
+              <button
+                type="button"
+                className={styles.shareCloseButton}
+                onClick={closeSharePopup}
+                aria-label="סגור"
+              >
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M18 6L6 18M6 6L18 18" />
+                </svg>
+              </button>
+              <h3 className={styles.sharePopupTitle}>שתפו עם יקירכם</h3>
               <div className={styles.shareUrlRow}>
                 <input
                   type="text"
