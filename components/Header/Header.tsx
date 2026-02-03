@@ -14,8 +14,8 @@ const defaultNavigation: NavigationItem[] = [
   { label: "בית", href: "/#home" },
   { label: "הסיפור שלי", href: "/#about" },
   { label: "גלריה", href: "/#gallery" },
-  { label: "הדפסות", href: "/#prints" },
-  { label: "מחירון", href: "/#pricing" },
+  // { label: "הדפסות", href: "/#prints" }, // temporarily hidden
+  // { label: "מחירון", href: "/#pricing" }, // temporarily hidden
   { label: "לקוחות ממליצים", href: "/#testimonials" },
   { label: "צור קשר", href: "/#contact" },
 ];

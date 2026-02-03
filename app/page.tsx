@@ -12,8 +12,8 @@ const sections = [
   { id: "home", Component: Home },
   { id: "about", Component: About },
   { id: "gallery", Component: Gallery },
-  { id: "prints", Component: Prints },
-  { id: "pricing", Component: Pricing },
+  // { id: "prints", Component: Prints }, // temporarily hidden
+  // { id: "pricing", Component: Pricing }, // temporarily hidden
   { id: "testimonials", Component: Testimonials },
   { id: "contact", Component: Contact },
 ];

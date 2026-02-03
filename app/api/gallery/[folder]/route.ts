@@ -11,7 +11,7 @@ const folderMap: Record<string, { folder: string; tags: string[] }> = {
   },
   'BatMitzva': { 
     folder: 'Photographer/Gallery/BatMitzva', 
-    tags: ['batmitzva', 'bat-mitzva', 'בת מצווה'] 
+    tags: ['batmitzva', 'bat-mitzva', 'בת/בר מצווה'] 
   },
   'Family': { 
     folder: 'Photographer/Gallery/Family', 
@@ -23,7 +23,7 @@ const folderMap: Record<string, { folder: string; tags: string[] }> = {
   },
   'BarMitzva': { 
     folder: 'Photographer/Gallery/BarMitzva', 
-    tags: ['barmitzva', 'bar-mitzva', 'בר מצווה'] 
+    tags: ['barmitzva', 'bar-mitzva', 'גיל 3 (חלקה)'] 
   },
   'NewBorn': { 
     folder: 'Photographer/Gallery/NewBorn', 

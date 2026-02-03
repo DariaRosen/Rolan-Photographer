@@ -276,16 +276,8 @@
   width: 100%;
   overflow: hidden;
   border-radius: 2px;
-  // Subtle shadow so tiles feel almost flush, similar to Pixieset
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
-  transition: transform $transition-base, box-shadow $transition-base;
   cursor: pointer;
-
-  &:hover {
-    transform: translateY(-2px) scale(1.01);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.18);
-    z-index: 1;
-  }
 }
 
 .collageImage {
@@ -294,12 +286,54 @@
   object-fit: cover;
   display: block;
   background-color: $bg-off-white;
-  transition: transform $transition-base, filter $transition-base;
+}
 
-  .collageItem:hover & {
-    transform: scale(1.1);
-    filter: brightness(1.05);
+.imageActions {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 2;
+  padding: 4px 6px;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.actionIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+
+  svg {
+    width: 20px;
+    height: 20px;
   }
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+  }
+
+  &:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+  }
+}
+
+a.actionIcon {
+  text-decoration: none;
+  color: inherit;
 }
 
 @keyframes fadeIn {
