@@ -32,6 +32,10 @@ export const Footer = () => {
             />
           </Link>
         </div>
+        <div className={styles.legal}>
+          <Link href="/privacy">מדיניות פרטיות</Link>
+          <Link href="/terms">תנאי שימוש</Link>
+        </div>
       </div>
     </footer>
   );

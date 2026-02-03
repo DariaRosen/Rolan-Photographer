@@ -122,6 +122,7 @@
   display: flex;
   gap: $spacing-md;
   justify-content: center;
+  margin-top: $spacing-lg;
 
   @include breakpoint(md) {
     justify-content: flex-end;
@@ -130,6 +131,7 @@
   a {
     color: $text-muted;
     transition: color $transition-fast;
+    font-size: $fs-sm;
 
     &:hover {
       color: $primary-color;
