@@ -8,14 +8,14 @@
   left: 0;
   right: 0;
   z-index: 1000;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.01);
   backdrop-filter: blur(22px);
-  border-bottom: 1px solid rgba($border-color, 0.35);
+  border-bottom: 1px solid rgba($border-color, 0.15);
   transition: all $transition-base;
   overflow: visible;
 
   &.scrolled {
-    background: rgba(248, 241, 234, 0.75);
+    background: rgba(248, 241, 234, 0.22);
     box-shadow: 0 24px 34px rgba(61, 42, 28, 0.12);
   }
 

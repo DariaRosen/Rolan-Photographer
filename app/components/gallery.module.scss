@@ -282,10 +282,8 @@
 .collageImage {
   width: 100%;
   min-width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
   display: block;
-  vertical-align: top;
   background-color: $bg-off-white;
 }
 
