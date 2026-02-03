@@ -11,6 +11,15 @@
 
 .container {
   @include container;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: $spacing-md;
+  min-height: 72px;
+  padding-top: $spacing-lg;
+  padding-bottom: $spacing-lg;
 }
 
 .content {
@@ -122,14 +131,15 @@
   display: flex;
   gap: $spacing-md;
   justify-content: center;
-  margin-top: $spacing-lg;
+  align-items: center;
 
   @include breakpoint(md) {
     justify-content: flex-end;
   }
 
   a {
-    color: $text-muted;
+    color: $text-dark;
+    font-weight: 600;
     transition: color $transition-fast;
     font-size: $fs-sm;
 
@@ -141,7 +151,7 @@
 
 .designedBy {
   display: flex;
-  align-items: end;
+  align-items: center;
   justify-content: center;
   gap: $spacing-xs;
   font-size: $fs-sm;
@@ -170,5 +180,7 @@
   width: auto;
   max-height: 48px;
   object-fit: contain;
+  display: block;
+  margin-top: -24px;
 }
 
