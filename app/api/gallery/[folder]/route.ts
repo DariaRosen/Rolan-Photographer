@@ -3,31 +3,31 @@ import { cloudinary } from '@/lib/cloudinary';
 
 export const dynamic = 'force-dynamic';
 
-// Map gallery folder names to Cloudinary folder paths and tags
+// Map gallery folder names to Cloudinary paths under rolan_main
 const folderMap: Record<string, { folder: string; tags: string[] }> = {
   'OneYear': { 
-    folder: 'Photographer/Gallery/one_year', 
-    tags: ['one_year', 'one-year', 'oneyear', 'one year', 'גיל שנה'] 
+    folder: 'rolan_main/smash_cake_one_year', 
+    tags: ['smash_cake_one_year', 'one_year', 'גיל שנה'] 
   },
   'BatMitzva': { 
-    folder: 'Photographer/Gallery/BatMitzva', 
-    tags: ['batmitzva', 'bat-mitzva', 'בת/בר מצווה'] 
+    folder: 'rolan_main/bar_bat_mizvah', 
+    tags: ['bar_bat_mizvah', 'בת/בר מצווה'] 
   },
   'Family': { 
-    folder: 'Photographer/Gallery/Family', 
+    folder: 'rolan_main/family', 
     tags: ['family', 'משפחה'] 
   },
   'Pregnancy': { 
-    folder: 'Photographer/Gallery/Pregnancy', 
-    tags: ['pregnancy', 'הריון'] 
+    folder: 'rolan_main/maternity', 
+    tags: ['maternity', 'הריון'] 
   },
   'BarMitzva': { 
-    folder: 'Photographer/Gallery/BarMitzva', 
-    tags: ['barmitzva', 'bar-mitzva', 'גיל 3 (חלקה)'] 
+    folder: 'rolan_main/chalake', 
+    tags: ['chalake', 'גיל 3 (חלקה)'] 
   },
   'NewBorn': { 
-    folder: 'Photographer/Gallery/NewBorn', 
-    tags: ['newborn', 'new-born', 'ניו בורן'] 
+    folder: 'rolan_main/newborn', 
+    tags: ['newborn', 'ניו בורן'] 
   },
 };
 
@@ -77,16 +77,13 @@ export async function GET(
     
     console.log(`API Route - Fetching images for folder: ${cloudinaryFolder}, tags: ${searchTags.join(', ')}`);
     
-    // Try multiple folder path variations
+    // Try multiple folder path variations (rolan_main structure)
     const folderVariations = [
       cloudinaryFolder,
       cloudinaryFolder.toLowerCase(),
       cloudinaryFolder.replace(/_/g, '-'),
-      `Photographer/Gallery/${folder}`,
-      `Photographer/Gallery/${folder.toLowerCase()}`,
-      `photographer/gallery/${folder.toLowerCase()}`,
-      `Photographer/${folder}`,
-      `Photographer/${folder.toLowerCase()}`,
+      `rolan_main/${folder}`,
+      `rolan_main/${folder.toLowerCase()}`,
     ];
     
     // First, try Search API with tags (since images might be tagged instead of in folders)
@@ -224,18 +221,18 @@ export async function GET(
       }
     }
     
-    // Final fallback: Fetch all images from Photographer folder and check their structure
+    // Final fallback: Fetch all images from rolan_main folder and check their structure
     try {
-      console.log('API Route - Final fallback: Fetching all images from Photographer folder to inspect structure');
+      console.log('API Route - Final fallback: Fetching all images from rolan_main folder to inspect structure');
       const allImagesResult = await cloudinary.api.resources({
         type: 'upload',
         resource_type: 'image',
-        prefix: 'Photographer',
+        prefix: 'rolan_main',
         max_results: 500,
       });
 
       if (allImagesResult.resources && allImagesResult.resources.length > 0) {
-        console.log(`API Route - Found ${allImagesResult.resources.length} total images in Photographer folder`);
+        console.log(`API Route - Found ${allImagesResult.resources.length} total images in rolan_main folder`);
         
         // Log sample public_ids to see the structure
         console.log('API Route - Sample public_ids (first 10):', 
@@ -252,9 +249,12 @@ export async function GET(
           folderNameLower,
           folderNameLower.replace(/_/g, '-'),
           folderNameLower.replace(/-/g, '_'),
-          'one_year',
-          'one-year',
-          'oneyear',
+          'bar_bat_mizvah',
+          'chalake',
+          'family',
+          'maternity',
+          'newborn',
+          'smash_cake_one_year',
         ];
 
         const matchingImages = allImagesResult.resources.filter((resource: any) => {
