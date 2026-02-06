@@ -61,8 +61,8 @@ export const Contact = () => {
                     strokeLinejoin="round"
                   />
                 </svg>
-                <a href="mailto:rolan@gmail.com" className={styles.link}>
-                  rolan@gmail.com
+                <a href="mailto:arshabanr@yahoo.com" className={styles.link}>
+                  arshabanr@yahoo.com
                 </a>
               </div>
 
@@ -93,7 +93,7 @@ export const Contact = () => {
 
               <div className={styles.socialLinks}>
                 <a
-                  href="https://facebook.com"
+                  href="https://www.facebook.com/rolansphotography/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className={styles.socialLink}
@@ -109,7 +109,7 @@ export const Contact = () => {
                   </svg>
                 </a>
                 <a
-                  href="https://instagram.com"
+                  href="https://www.instagram.com/rolanphotography"
                   target="_blank"
                   rel="noopener noreferrer"
                   className={styles.socialLink}
