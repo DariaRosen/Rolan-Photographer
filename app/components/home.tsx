@@ -27,11 +27,11 @@ async function getCarouselImages(): Promise<CarouselImage[]> {
       return [];
     }
 
-    console.log('Home - Attempting to fetch images from Photographer/Carousel folder');
+    console.log('Home - Attempting to fetch images from rolan_main/carousel folder');
     
     // Call Cloudinary directly instead of using fetch to avoid build-time issues
     const searchResult = await cloudinary.search
-      .expression('folder:Photographer/Carousel AND resource_type:image')
+      .expression('folder:rolan_main/carousel AND resource_type:image')
       .max_results(500)
       .execute();
 
@@ -76,7 +76,7 @@ async function getCarouselImages(): Promise<CarouselImage[]> {
       return images;
     }
 
-    console.warn('Home - No images found in Photographer/Carousel folder');
+    console.warn('Home - No images found in rolan_main/carousel folder');
     return [];
   } catch (error: any) {
     console.error('Home - Error fetching carousel images from Cloudinary:', {

@@ -17,12 +17,12 @@ export async function GET() {
   });
 
   try {
-    console.log('API Route - Using Search API to find images in Photographer/Carousel folder');
+    console.log('API Route - Using Search API to find images in rolan_main/carousel folder');
     
     // Use Search API with folder expression - this works even if public_id doesn't include folder
     try {
       const searchResult = await cloudinary.search
-        .expression('folder:Photographer/Carousel AND resource_type:image')
+        .expression('folder:rolan_main/carousel AND resource_type:image')
         .max_results(500)
         .execute();
 
@@ -32,7 +32,7 @@ export async function GET() {
       });
 
       if (searchResult.resources && searchResult.resources.length > 0) {
-        console.log(`API Route - Found ${searchResult.resources.length} images in Photographer/Carousel folder`);
+        console.log(`API Route - Found ${searchResult.resources.length} images in rolan_main/carousel folder`);
         console.log('API Route - Sample public_ids:', 
           searchResult.resources.slice(0, 10).map((r: any) => r.public_id));
         
@@ -47,7 +47,7 @@ export async function GET() {
         console.log(`API Route - Mapped to ${images.length} image resources`);
         return NextResponse.json({ images, success: true });
       } else {
-        console.warn('API Route - Search API returned 0 results for folder:Photographer/Carousel');
+        console.warn('API Route - Search API returned 0 results for folder:rolan_main/carousel');
       }
     } catch (searchError: any) {
       console.error('API Route - Search API failed:', {
@@ -62,7 +62,7 @@ export async function GET() {
         const result = await cloudinary.api.resources({
           type: 'upload',
           resource_type: 'image',
-          prefix: 'Photographer/Carousel',
+          prefix: 'rolan_main/carousel',
           max_results: 500,
         });
 
