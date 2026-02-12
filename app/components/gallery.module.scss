@@ -1,3 +1,4 @@
+@use 'sass:color';
 @use '../../styles/variables' as *;
 @use '../../styles/mixins' as *;
 
@@ -515,7 +516,7 @@ a.actionIcon {
   transition: background $transition-base, transform $transition-fast;
 
   &:hover {
-    background: darken($primary-color, 6%);
+    background: color.adjust($primary-color, $lightness: -6%);
   }
 }
 
