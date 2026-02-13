@@ -31,9 +31,14 @@ export const Carousel = ({ images }: CarouselProps) => {
           disableOnInteraction: false,
         }}
       >
-        {images.map((image) => (
+        {images.map((image, index) => (
           <SwiperSlide className={styles.swiperSlide} key={image.src}>
-            <img src={image.src} alt={image.alt} />
+            <img
+              src={image.src}
+              alt={image.alt}
+              loading={index === 0 ? 'eager' : 'lazy'}
+              fetchPriority={index === 0 ? 'high' : undefined}
+            />
           </SwiperSlide>
         ))}
       </Swiper>

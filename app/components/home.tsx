@@ -2,6 +2,7 @@ import styles from "./home.module.scss";
 import { Main } from "@/components/Main/Main";
 import { Carousel } from "@/components/Carousel/carousel";
 import { cloudinary } from "@/lib/cloudinary";
+import { getOptimizedCloudinaryUrl } from "@/lib/cloudinary-url";
 
 interface CarouselImage {
   src: string;
@@ -108,7 +109,12 @@ export const Home = async () => {
     { src: "/images/photo7.PNG", alt: "Photography Portfolio Image 7" },
   ];
 
-  const images = carouselImages.length > 0 ? carouselImages : fallbackImages;
+  const rawImages = carouselImages.length > 0 ? carouselImages : fallbackImages;
+  // Optimize Cloudinary URLs (format + size) for LCP; carousel displays ~1335px wide
+  const images = rawImages.map((img) => ({
+    ...img,
+    src: getOptimizedCloudinaryUrl(img.src, 1400),
+  }));
 
   return (
     <Main>

@@ -1,7 +1,9 @@
 'use client'
 
 import { useState, useCallback, useEffect } from 'react'
+import Image from 'next/image'
 import { Main } from '@/components/Main/Main'
+import { getOptimizedCloudinaryUrl } from '@/lib/cloudinary-url'
 import styles from './testimonials.module.scss'
 
 interface Testimonial {
@@ -187,10 +189,13 @@ export const Testimonials = () => {
                   </div>
                   <div className={styles.heartContainer}>
                     <div className={styles.heartCircle}>
-                      <img
+                      <Image
                         src="/pink-calligraphy-heart/bb10b0aa-4032-4feb-9f3b-1c48e55eb96f.jpg"
                         alt="Heart"
+                        width={54}
+                        height={54}
                         className={styles.heartIcon}
+                        sizes="54px"
                       />
                     </div>
                     <p className={styles.clientName}>{testimonial.clientName}</p>

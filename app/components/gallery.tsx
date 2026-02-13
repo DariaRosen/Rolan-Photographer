@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { Main } from '@/components/Main/Main'
+import { getOptimizedCloudinaryUrl } from '@/lib/cloudinary-url'
 import styles from './gallery.module.scss'
 
 interface GalleryItem {
@@ -325,9 +326,10 @@ export const Gallery = () => {
             >
               <div className={styles.frame}>
                 <img
-                  src={item.image}
+                  src={getOptimizedCloudinaryUrl(item.image, 920)}
                   alt={item.title}
                   className={styles.image}
+                  loading="lazy"
                 />
                 <div className={styles.itemTitleOverlay}>
                   <h2 className={styles.itemTitle}>{item.title}</h2>
@@ -387,7 +389,7 @@ export const Gallery = () => {
                             className={styles.collageItem}
                           >
                             <img
-                              src={image.src}
+                              src={getOptimizedCloudinaryUrl(image.src, 1000)}
                               alt={image.alt || `${selectedFolder.title} ${columnIndex + 1}-${index + 1}`}
                               className={styles.collageImage}
                               loading="lazy"

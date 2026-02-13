@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import styles from "./header.module.scss";
 import { NavigationItem } from "@/types";
@@ -79,10 +80,13 @@ export const Header = ({ navigation = defaultNavigation }: HeaderProps) => {
             rel="noopener noreferrer"
             className={styles.contactLink}
           >
-            <img
+            <Image
               src="/512px-WhatsApp.svg.webp"
               alt="WhatsApp"
+              width={48}
+              height={48}
               className={styles.whatsappIcon}
+              sizes="48px"
             />
           </a>
           <span className={styles.phoneNumber}>054-228-1004</span>
@@ -106,7 +110,15 @@ export const Header = ({ navigation = defaultNavigation }: HeaderProps) => {
 
         {/* Right - Logo */}
         <Link href="/" className={styles.logo}>
-          <img src="/logo.png" alt="Logo" className={styles.logoImage} />
+          <Image
+            src="/logo.png"
+            alt="Logo"
+            width={137}
+            height={60}
+            className={styles.logoImage}
+            sizes="137px"
+            priority
+          />
         </Link>
 
         {/* Mobile Button */}
