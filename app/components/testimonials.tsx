@@ -14,7 +14,7 @@ interface Testimonial {
 const testimonials: Testimonial[] = [
   {
     id: '1',
-    image: '/testimonies/1.PNG',
+    image: 'https://res.cloudinary.com/dwkybtmte/image/upload/v1770576953/IMG_3054_1_nqetw9.jpg',
     clientName: 'אמא של אורי וגיל',
     text: [
       'תודה רולן את נדירה',
@@ -29,7 +29,7 @@ const testimonials: Testimonial[] = [
   },
   {
     id: '2',
-    image: '/testimonies/2.PNG',
+    image: 'https://res.cloudinary.com/dwkybtmte/image/upload/v1770359008/IMG_6575_j5ycgw.jpg',
     clientName: 'פייגי, אמא ל-3',
     text: [
       'וואו רולן!!!!!',
@@ -45,7 +45,7 @@ const testimonials: Testimonial[] = [
   },
   {
     id: '3',
-    image: '/testimonies/3.PNG',
+    image: 'https://res.cloudinary.com/dwkybtmte/image/upload/v1770053859/00004106_sq5nxg.jpg',
     clientName: 'דבורה קורן',
     text: [
       'ואיי תקשיבי התגובות מטורפותתתת על התמונות',
@@ -57,7 +57,7 @@ const testimonials: Testimonial[] = [
   },
   {
     id: '4',
-    image: '/testimonies/4.PNG',
+    image: 'https://res.cloudinary.com/dwkybtmte/image/upload/v1770053252/00001815_xll4q8.jpg',
     clientName: 'שרה, אמא ל-2',
     text: [
       'תודה רבה על התמונות המדהימות!',
@@ -67,7 +67,7 @@ const testimonials: Testimonial[] = [
   },
   {
     id: '5',
-    image: '/testimonies/5.PNG',
+    image: 'https://res.cloudinary.com/dwkybtmte/image/upload/v1770920180/IMG_5936_b0jp56.jpg',
     clientName: 'רחל כהן',
     text: [
       'את צלמת נהדרת!',
