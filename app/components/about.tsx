@@ -126,13 +126,16 @@ export const About = () => {
         <h1 className={styles.title}>הסיפור שלי</h1>
         
         <div className={styles.tabsContainer}>
-          <div className={styles.tabs}>
+          <div className={styles.tabs} role="tablist">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
                 className={`${styles.tab} ${activeTab === tab.id ? styles.tabActive : ''}`}
                 onClick={() => handleTabChange(tab.id)}
                 type="button"
+                aria-label={tab.label}
+                role="tab"
+                aria-selected={activeTab === tab.id}
               >
                 <img 
                   src={tab.icon} 

@@ -127,6 +127,8 @@ export const Header = ({ navigation = defaultNavigation }: HeaderProps) => {
             isMobileMenuOpen ? styles.open : ""
           }`}
           onClick={handleMobileMenuToggle}
+          aria-label={isMobileMenuOpen ? "סגור תפריט" : "פתח תפריט"}
+          aria-expanded={isMobileMenuOpen}
         >
           <span></span>
           <span></span>
