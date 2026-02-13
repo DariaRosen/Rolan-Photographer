@@ -138,7 +138,7 @@ export const Contact = () => {
                   </svg>
                 </a>
                 <a
-                  href="https://tiktok.com"
+                  href="https://www.tiktok.com/@rolanarshabanphot"
                   target="_blank"
                   rel="noopener noreferrer"
                   className={styles.socialLink}

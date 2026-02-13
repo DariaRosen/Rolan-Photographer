@@ -21,7 +21,7 @@ const galleryItems: GalleryItem[] = [
   {
     id: '1',
     title: 'בת/בר מצווה',
-    image: '/gallery/photo1.PNG',
+    image: 'https://res.cloudinary.com/dwkybtmte/image/upload/v1770053113/00000920_smmhen.jpg',
     folder: 'BatMitzva',
   },
   {
@@ -33,25 +33,25 @@ const galleryItems: GalleryItem[] = [
   {
     id: '3',
     title: 'משפחה',
-    image: '/gallery/photo3.PNG',
+    image: 'https://res.cloudinary.com/dwkybtmte/image/upload/v1770053282/00001881_m3jsid.jpg',
     folder: 'Family',
   },
   {
     id: '4',
     title: 'הריון',
-    image: '/gallery/photo4.PNG',
+    image: 'https://res.cloudinary.com/dwkybtmte/image/upload/v1770920649/IMG_6384_abd5fd.jpg',
     folder: 'Pregnancy',
   },
   {
     id: '5',
     title: 'גיל 3 (חלקה)',
-    image: '/gallery/photo5.PNG',
+    image: 'https://res.cloudinary.com/dwkybtmte/image/upload/v1770920262/00000144_-_%D7%A2%D7%95%D7%AA%D7%A7_ixpovd.jpg',
     folder: 'BarMitzva',
   },
   {
     id: '6',
     title: 'ניו בורן',
-    image: '/gallery/photo6.PNG',
+    image: 'https://res.cloudinary.com/dwkybtmte/image/upload/v1770053904/00004596_h4a7ur.jpg',
     folder: 'NewBorn',
   },
 ]
