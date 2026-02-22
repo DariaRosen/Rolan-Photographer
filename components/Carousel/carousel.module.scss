@@ -20,9 +20,7 @@
   border: none;
   box-shadow: none;
   overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  position: relative;
 
   @include breakpoint(lg) {
     min-height: 700px;
@@ -36,10 +34,14 @@
     min-height: 400px;
   }
 
+  /* Full width always; only top/bottom cropped when needed (centered) */
   img {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
+    height: auto;
+    display: block;
   }
 }

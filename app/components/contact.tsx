@@ -16,7 +16,7 @@ export const Contact = () => {
         <div className={styles.container}>
           <div className={styles.imageWrapper}>
             <Image
-              src="/images 2/Capture.PNG"
+              src="/images 2/Contact.jpeg"
               alt="Child with phone"
               fill
               className={styles.image}
