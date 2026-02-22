@@ -39,42 +39,45 @@
 }
 
 .heroQuote {
-  position: absolute;
-  right: 3%;
-  top: 3%;
-  max-width: 40rem;
   font-family: $font-primary;
   font-weight: 700;
   font-size: 2.3em;
   line-height: 1.4;
-  color: #ffffff;
-  text-align: right;
   letter-spacing: 0.5px;
-  text-shadow: 0 4px 16px rgba(0, 0, 0, 0.7);
   z-index: 10;
   pointer-events: none;
 
-  @media (max-width: 1180px) {
+  /* Above 750px: overlay on top-right of carousel */
+  @media (min-width: 750px) {
+    position: absolute;
     right: 3%;
     top: 3%;
+    max-width: 40rem;
+    color: #ffffff;
+    text-align: right;
+    text-shadow: 0 4px 16px rgba(0, 0, 0, 0.7);
+  }
+
+  @media (min-width: 750px) and (max-width: 1180px) {
     font-size: 2.1rem;
     max-width: 34rem;
   }
 
-  @media (max-width: 880px) {
-    right: 3%;
-    top: 3%;
+  @media (min-width: 750px) and (max-width: 880px) {
     font-size: 1.7rem;
     max-width: 28rem;
   }
 
-  @media (max-width: 640px) {
-    right: 3%;
-    left: 3%;
-    top: 3%;
-    font-size: 1.4rem;
+  /* Below 750px: above the image, in page flow; small fixed gap to carousel */
+  @media (max-width: 749px) {
+    position: static;
+    padding: 0 $spacing-md 0;
+    margin-bottom: 0.5rem;
     max-width: 100%;
+    color: $text-dark;
     text-align: center;
+    font-size: 1.4rem;
+    text-shadow: none;
   }
 }
 

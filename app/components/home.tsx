@@ -121,10 +121,10 @@ export const Home = async () => {
       <div className={styles.home}>
         {images.length > 0 && (
           <div className={styles.carouselSection}>
-            <Carousel images={images} />
             <div className={styles.heroQuote} dir="rtl">
               «הרגעים הקטנים עם המשפחה היום הם פרקי הנוסטלגיה של העתיד»
             </div>
+            <Carousel images={images} />
           </div>
         )}
       </div>

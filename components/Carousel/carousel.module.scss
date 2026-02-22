@@ -30,8 +30,13 @@
     min-height: 500px;
   }
 
+  @media (max-width: 749px) {
+    min-height: 280px;
+    aspect-ratio: 4 / 3;
+  }
+
   @media (max-width: 560px) {
-    min-height: 400px;
+    min-height: 240px;
   }
 
   /* Full width always; only top/bottom cropped when needed (centered) */
